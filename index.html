@@ -329,7 +329,6 @@ footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
     <a class="tab" href="#formacao">Formação</a>
     <a class="tab" href="#servicos">Serviços</a>
     <a class="tab" href="#certificados">Certificados</a>
-    <a class="tab" href="#galeria">Galeria</a>
     <a class="tab" href="#links">Links</a>
     <a class="tab" href="#contato">Contato</a>
   </div>
@@ -432,24 +431,6 @@ footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
   </div>
   <div class="media-grid" id="cert-grid">
     <p class="empty-note" id="cert-empty">Nenhum certificado ainda — adicione o primeiro acima. ✨</p>
-  </div>
-</section>
-
-<!-- ===================== GALERIA ===================== -->
-<section id="galeria">
-  <div class="reveal">
-    <span class="section-tag">Galeria</span>
-    <h2 class="section-title">Fotos & projetos</h2>
-    <p class="section-sub">Registros de projetos, setup, eventos e o que mais fizer sentido mostrar.</p>
-  </div>
-  <div class="upload-zone reveal" id="foto-zone">
-    <span class="up-icon">🖼️</span>
-    <b>Clique ou arraste fotos aqui</b>
-    <small>Carregamento instantâneo na galeria</small>
-    <input type="file" id="foto-input" accept="image/*" multiple hidden>
-  </div>
-  <div class="media-grid" id="foto-grid">
-    <p class="empty-note" id="foto-empty">A galeria está vazia — solte umas fotos aí em cima. 📸</p>
   </div>
 </section>
 
@@ -644,7 +625,6 @@ function comprimir(file){
 const CERTS_FIXOS=[
   {src:'certificados/banco-de-dados-1.jpg',titulo:'Banco de Dados 1: fundamentos — IFRS / Aprenda Mais (20h)'}
 ];
-const FOTOS_FIXAS=[];
 
 /* ---- seções de mídia (certificados + galeria usam a mesma lógica) ---- */
 function setupMedia(key,zoneId,inputId,gridId,emptyId,nome,fixos=[]){
@@ -699,7 +679,6 @@ function setupMedia(key,zoneId,inputId,gridId,emptyId,nome,fixos=[]){
   return{get:()=>itens,set(v){itens=v;store.set(key,itens);render()}};
 }
 const certs=setupMedia('kf_certs','cert-zone','cert-input','cert-grid','cert-empty','Certificado',CERTS_FIXOS);
-const fotos=setupMedia('kf_fotos','foto-zone','foto-input','foto-grid','foto-empty','Foto',FOTOS_FIXAS);
 
 /* lightbox */
 const lb=document.getElementById('lightbox');
@@ -709,11 +688,12 @@ addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')})
 
 /* ---- links personalizados ---- */
 const linksDefault=[
-  {t:'Instagram',u:'https://instagram.com/',i:'📸'},
+  {t:'Instagram',u:'https://www.instagram.com/dev_mkbraion/',i:'📸'},
   {t:'GitHub',u:'https://github.com/mkbraion',i:'🐙'},
   {t:'WhatsApp',u:'https://wa.me/5555991117663',i:'💬'}
 ];
-let meusLinks=store.get('kf_links',linksDefault);
+let meusLinks=store.get('kf_links',linksDefault)
+  .map(l=>l.u==='https://instagram.com/'?{...l,u:'https://www.instagram.com/dev_mkbraion/'}:l);
 const listEl=document.getElementById('links-list');
 function iconePara(url){
   const u=url.toLowerCase();
@@ -759,7 +739,7 @@ renderLinks();
    BACKUP — exportar / importar tudo (certificados, fotos, links)
    ============================================================= */
 document.getElementById('btn-export').addEventListener('click',()=>{
-  const data={certs:certs.get(),fotos:fotos.get(),links:meusLinks,v:1};
+  const data={certs:certs.get(),links:meusLinks,v:1};
   const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -776,7 +756,6 @@ importInput.addEventListener('change',()=>{
     try{
       const d=JSON.parse(r.result);
       if(d.certs)certs.set(d.certs);
-      if(d.fotos)fotos.set(d.fotos);
       if(d.links){meusLinks=d.links;store.set('kf_links',meusLinks);renderLinks()}
       toast('📂 Conteúdo restaurado!');
     }catch{toast('⚠️ Arquivo inválido.')}
