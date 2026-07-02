@@ -640,8 +640,14 @@ function comprimir(file){
   });
 }
 
+/* ---- certificados fixos: embutidos no site, todo visitante vê ---- */
+const CERTS_FIXOS=[
+  {src:'certificados/banco-de-dados-1.jpg',titulo:'Banco de Dados 1: fundamentos — IFRS / Aprenda Mais (20h)'}
+];
+const FOTOS_FIXAS=[];
+
 /* ---- seções de mídia (certificados + galeria usam a mesma lógica) ---- */
-function setupMedia(key,zoneId,inputId,gridId,emptyId,nome){
+function setupMedia(key,zoneId,inputId,gridId,emptyId,nome,fixos=[]){
   const zone=document.getElementById(zoneId);
   const input=document.getElementById(inputId);
   const grid=document.getElementById(gridId);
@@ -650,7 +656,15 @@ function setupMedia(key,zoneId,inputId,gridId,emptyId,nome){
 
   function render(){
     grid.querySelectorAll('.media-item').forEach(n=>n.remove());
-    empty.style.display=itens.length?'none':'';
+    empty.style.display=(itens.length||fixos.length)?'none':'';
+    fixos.forEach(f=>{
+      const d=document.createElement('div');
+      d.className='media-item';
+      d.title=f.titulo||'';
+      d.innerHTML=`<img src="${f.src}" alt="${f.titulo||nome}" loading="lazy">`;
+      d.querySelector('img').addEventListener('click',()=>abrirLightbox(f.src));
+      grid.appendChild(d);
+    });
     itens.forEach((src,i)=>{
       const d=document.createElement('div');
       d.className='media-item';
@@ -684,8 +698,8 @@ function setupMedia(key,zoneId,inputId,gridId,emptyId,nome){
   render();
   return{get:()=>itens,set(v){itens=v;store.set(key,itens);render()}};
 }
-const certs=setupMedia('kf_certs','cert-zone','cert-input','cert-grid','cert-empty','Certificado');
-const fotos=setupMedia('kf_fotos','foto-zone','foto-input','foto-grid','foto-empty','Foto');
+const certs=setupMedia('kf_certs','cert-zone','cert-input','cert-grid','cert-empty','Certificado',CERTS_FIXOS);
+const fotos=setupMedia('kf_fotos','foto-zone','foto-input','foto-grid','foto-empty','Foto',FOTOS_FIXAS);
 
 /* lightbox */
 const lb=document.getElementById('lightbox');
