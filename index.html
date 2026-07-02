@@ -208,22 +208,6 @@ h1 .grad{background:var(--grad);background-size:220% auto;-webkit-background-cli
 .link-item .li-body span{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
 .link-item .arrow{color:var(--muted);transition:transform .25s}
 .link-item:hover .arrow{transform:translateX(5px);color:#22d3ee}
-.link-item .del-link{
-  background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;
-  opacity:0;transition:opacity .2s;padding:6px;
-}
-.link-item:hover .del-link{opacity:.8}
-.link-item .del-link:hover{color:#f43f5e}
-.add-link-form{
-  display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;max-width:640px;
-  padding:18px;border-radius:16px;background:var(--surface);border:1px dashed var(--border);
-}
-.add-link-form input{
-  flex:1;min-width:150px;padding:12px 16px;border-radius:12px;
-  background:rgba(0,0,0,.3);border:1px solid var(--border);color:var(--text);
-  font-size:.9rem;outline:none;transition:border-color .2s;
-}
-.add-link-form input:focus{border-color:var(--c1)}
 
 /* ===== CONTATO ===== */
 .contact-form{
@@ -259,12 +243,6 @@ footer{
   margin-top:80px;padding:44px 24px 34px;text-align:center;
   border-top:1px solid var(--border);color:var(--muted);font-size:.85rem;
 }
-footer .backup-row{display:flex;gap:12px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
-footer .backup-row button{
-  background:var(--surface);border:1px solid var(--border);color:var(--muted);
-  padding:8px 18px;border-radius:99px;cursor:pointer;font-size:.8rem;transition:color .2s,border-color .2s;
-}
-footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
 
 /* toast */
 #toast{
@@ -412,14 +390,25 @@ footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
   <div class="reveal">
     <span class="section-tag">Links</span>
     <h2 class="section-title">Onde me encontrar</h2>
-    <p class="section-sub">Meus projetos, redes e contatos — tudo num lugar só. Adicione novos links quando quiser.</p>
+    <p class="section-sub">Meus projetos, redes e contatos — tudo num lugar só.</p>
   </div>
-  <div class="links-list reveal" id="links-list"></div>
-  <form class="add-link-form reveal" id="link-form">
-    <input type="text" id="link-title" placeholder="Título (ex.: Meu GitHub)" required>
-    <input type="url" id="link-url" placeholder="https://..." required>
-    <button class="btn btn-primary" type="submit">＋ Adicionar</button>
-  </form>
+  <div class="links-list reveal">
+    <a class="link-item" href="https://www.instagram.com/dev_mkbraion/" target="_blank" rel="noopener">
+      <span class="li-icon">📸</span>
+      <span class="li-body"><b>Instagram</b><span>@dev_mkbraion</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="link-item" href="https://github.com/mkbraion" target="_blank" rel="noopener">
+      <span class="li-icon">🐙</span>
+      <span class="li-body"><b>GitHub</b><span>github.com/mkbraion</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="link-item" href="https://wa.me/5555991117663" target="_blank" rel="noopener">
+      <span class="li-icon">💬</span>
+      <span class="li-body"><b>WhatsApp</b><span>(55) 99111-7663</span></span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
 </section>
 
 <!-- ===================== CONTATO ===================== -->
@@ -445,12 +434,7 @@ footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
 </section>
 
 <footer>
-  <div class="backup-row">
-    <button id="btn-export">💾 Exportar conteúdo</button>
-    <button id="btn-import">📂 Importar conteúdo</button>
-    <input type="file" id="import-input" accept="application/json" hidden>
-  </div>
-  <p>© <span id="year"></span> — feito com muito código e café ☕</p>
+  <p>© <span id="year"></span> MK O Dev — feito com muito código e café ☕</p>
 </footer>
 
 <div id="lightbox"><img id="lightbox-img" alt="Imagem ampliada"></div>
@@ -562,15 +546,8 @@ let fi=0,ci=0,apagando=false;
 })();
 
 /* =============================================================
-   ARMAZENAMENTO LOCAL (certificados, fotos, links)
+   AVISOS (toast)
    ============================================================= */
-const store={
-  get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},
-  set(k,v){
-    try{localStorage.setItem(k,JSON.stringify(v));return true}
-    catch{toast('⚠️ Espaço cheio! Exporte um backup e remova algumas imagens.');return false}
-  }
-};
 function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
@@ -596,82 +573,6 @@ const lb=document.getElementById('lightbox');
 function abrirLightbox(src){document.getElementById('lightbox-img').src=src;lb.classList.add('open')}
 lb.addEventListener('click',()=>lb.classList.remove('open'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
-
-/* ---- links personalizados ---- */
-const linksDefault=[
-  {t:'Instagram',u:'https://www.instagram.com/dev_mkbraion/',i:'📸'},
-  {t:'GitHub',u:'https://github.com/mkbraion',i:'🐙'},
-  {t:'WhatsApp',u:'https://wa.me/5555991117663',i:'💬'}
-];
-let meusLinks=store.get('kf_links',linksDefault)
-  .map(l=>l.u==='https://instagram.com/'?{...l,u:'https://www.instagram.com/dev_mkbraion/'}:l);
-const listEl=document.getElementById('links-list');
-function iconePara(url){
-  const u=url.toLowerCase();
-  if(u.includes('instagram'))return'📸';
-  if(u.includes('github'))return'🐙';
-  if(u.includes('wa.me')||u.includes('whatsapp'))return'💬';
-  if(u.includes('linkedin'))return'💼';
-  if(u.includes('youtube'))return'▶️';
-  if(u.includes('mailto')||u.includes('@'))return'✉️';
-  return'🔗';
-}
-function renderLinks(){
-  listEl.innerHTML='';
-  if(!meusLinks.length){listEl.innerHTML='<p class="empty-note">Nenhum link ainda — adicione abaixo.</p>';return}
-  meusLinks.forEach((l,i)=>{
-    const a=document.createElement('a');
-    a.className='link-item';a.href=l.u;a.target='_blank';a.rel='noopener';
-    a.innerHTML=`<span class="li-icon">${l.i||iconePara(l.u)}</span>
-      <span class="li-body"><b>${l.t}</b><span>${l.u}</span></span>
-      <button class="del-link" title="Remover">✕</button>
-      <span class="arrow">→</span>`;
-    a.querySelector('.del-link').addEventListener('click',ev=>{
-      ev.preventDefault();ev.stopPropagation();
-      meusLinks.splice(i,1);store.set('kf_links',meusLinks);renderLinks();
-      toast('Link removido.');
-    });
-    listEl.appendChild(a);
-  });
-}
-document.getElementById('link-form').addEventListener('submit',e=>{
-  e.preventDefault();
-  const t=document.getElementById('link-title').value.trim();
-  const u=document.getElementById('link-url').value.trim();
-  if(!t||!u)return;
-  meusLinks.push({t,u,i:iconePara(u)});
-  store.set('kf_links',meusLinks);renderLinks();
-  e.target.reset();
-  toast('✅ Link adicionado!');
-});
-renderLinks();
-
-/* =============================================================
-   BACKUP — exportar / importar tudo (certificados, fotos, links)
-   ============================================================= */
-document.getElementById('btn-export').addEventListener('click',()=>{
-  const data={links:meusLinks,v:2};
-  const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='meu-portfolio-backup.json';
-  a.click();URL.revokeObjectURL(a.href);
-  toast('💾 Backup baixado!');
-});
-const importInput=document.getElementById('import-input');
-document.getElementById('btn-import').addEventListener('click',()=>importInput.click());
-importInput.addEventListener('change',()=>{
-  const f=importInput.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{
-      const d=JSON.parse(r.result);
-      if(d.links){meusLinks=d.links;store.set('kf_links',meusLinks);renderLinks()}
-      toast('📂 Conteúdo restaurado!');
-    }catch{toast('⚠️ Arquivo inválido.')}
-  };
-  r.readAsText(f);importInput.value='';
-});
 
 /* =============================================================
    CONTATO — envia os dados do visitante pro meu email / WhatsApp
