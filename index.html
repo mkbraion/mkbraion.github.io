@@ -171,18 +171,7 @@ h1 .grad{background:var(--grad);background-size:220% auto;-webkit-background-cli
   padding:4px 12px;border-radius:99px;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3);
 }
 
-/* ===== CERTIFICADOS & GALERIA ===== */
-.upload-zone{
-  border:2px dashed rgba(124,58,237,.5);border-radius:22px;
-  padding:44px 24px;text-align:center;cursor:pointer;
-  background:rgba(124,58,237,.05);
-  transition:background .25s,border-color .25s,transform .2s;
-  margin-bottom:28px;
-}
-.upload-zone:hover,.upload-zone.drag{background:rgba(124,58,237,.13);border-color:#a78bfa;transform:scale(1.008)}
-.upload-zone .up-icon{font-size:2.4rem;display:block;margin-bottom:10px}
-.upload-zone b{color:#c4b5fd}
-.upload-zone small{display:block;color:var(--muted);margin-top:6px}
+/* ===== CERTIFICADOS ===== */
 .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
 .media-item{
   position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--border);
@@ -193,14 +182,6 @@ h1 .grad{background:var(--grad);background-size:220% auto;-webkit-background-cli
 @keyframes pop{from{opacity:0;transform:scale(.75)}}
 .media-item:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 38px rgba(0,0,0,.5)}
 .media-item img{width:100%;height:100%;object-fit:cover;display:block}
-.media-item .del{
-  position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;
-  background:rgba(0,0,0,.65);color:#fff;border:1px solid rgba(255,255,255,.2);
-  cursor:pointer;font-size:.95rem;opacity:0;transition:opacity .2s,background .2s;
-  display:grid;place-items:center;
-}
-.media-item:hover .del{opacity:1}
-.media-item .del:hover{background:#f43f5e}
 .empty-note{color:var(--muted);font-size:.9rem;text-align:center;padding:16px;grid-column:1/-1}
 
 /* lightbox */
@@ -265,7 +246,7 @@ h1 .grad{background:var(--grad);background-size:220% auto;-webkit-background-cli
 .btn:disabled{opacity:.6;cursor:wait;transform:none!important}
 
 /* ===== EFEITO DE CLIQUE (ripple) ===== */
-.btn,nav a.tab,.upload-zone,.link-item{position:relative;overflow:hidden}
+.btn,nav a.tab,.link-item{position:relative;overflow:hidden}
 .ripple{
   position:absolute;border-radius:50%;pointer-events:none;
   background:rgba(255,255,255,.4);transform:scale(0);
@@ -423,15 +404,7 @@ footer .backup-row button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
     <h2 class="section-title">Meus certificados</h2>
     <p class="section-sub">Cursos e conquistas ao longo da jornada. Toque em um certificado para ampliar.</p>
   </div>
-  <div class="upload-zone reveal" id="cert-zone">
-    <span class="up-icon">📜</span>
-    <b>Clique ou arraste as fotos dos certificados aqui</b>
-    <small>Elas aparecem na hora, direto na grade abaixo</small>
-    <input type="file" id="cert-input" accept="image/*" multiple hidden>
-  </div>
-  <div class="media-grid" id="cert-grid">
-    <p class="empty-note" id="cert-empty">Nenhum certificado ainda — adicione o primeiro acima. ✨</p>
-  </div>
+  <div class="media-grid reveal" id="cert-grid"></div>
 </section>
 
 <!-- ===================== LINKS ===================== -->
@@ -546,7 +519,7 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
 
 /* efeito de clique (ripple) em botões, abas, links e zonas de upload */
 document.addEventListener('click',e=>{
-  const el=e.target.closest('.btn,nav a.tab,.upload-zone,.link-item');
+  const el=e.target.closest('.btn,nav a.tab,.link-item');
   if(!el)return;
   const r=el.getBoundingClientRect();
   const size=Math.max(r.width,r.height);
@@ -604,81 +577,19 @@ function toast(msg){
   clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-/* comprime a imagem antes de guardar (cabe mais coisa no navegador) */
-function comprimir(file){
-  return new Promise(res=>{
-    const img=new Image();
-    img.onload=()=>{
-      const MAX=1100;
-      let{width:w,height:h}=img;
-      if(w>MAX||h>MAX){const s=MAX/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s)}
-      const cv=document.createElement('canvas');cv.width=w;cv.height=h;
-      cv.getContext('2d').drawImage(img,0,0,w,h);
-      URL.revokeObjectURL(img.src);
-      res(cv.toDataURL('image/jpeg',.82));
-    };
-    img.src=URL.createObjectURL(file);
-  });
-}
-
-/* ---- certificados fixos: embutidos no site, todo visitante vê ---- */
+/* ---- certificados embutidos no site: todo visitante vê ---- */
 const CERTS_FIXOS=[
   {src:'certificados/banco-de-dados-1.jpg',titulo:'Banco de Dados 1: fundamentos — IFRS / Aprenda Mais (20h)'}
 ];
-
-/* ---- seções de mídia (certificados + galeria usam a mesma lógica) ---- */
-function setupMedia(key,zoneId,inputId,gridId,emptyId,nome,fixos=[]){
-  const zone=document.getElementById(zoneId);
-  const input=document.getElementById(inputId);
-  const grid=document.getElementById(gridId);
-  const empty=document.getElementById(emptyId);
-  let itens=store.get(key,[]);
-
-  function render(){
-    grid.querySelectorAll('.media-item').forEach(n=>n.remove());
-    empty.style.display=(itens.length||fixos.length)?'none':'';
-    fixos.forEach(f=>{
-      const d=document.createElement('div');
-      d.className='media-item';
-      d.title=f.titulo||'';
-      d.innerHTML=`<img src="${f.src}" alt="${f.titulo||nome}" loading="lazy">`;
-      d.querySelector('img').addEventListener('click',()=>abrirLightbox(f.src));
-      grid.appendChild(d);
-    });
-    itens.forEach((src,i)=>{
-      const d=document.createElement('div');
-      d.className='media-item';
-      d.innerHTML=`<img src="${src}" alt="${nome} ${i+1}" loading="lazy"><button class="del" title="Remover">✕</button>`;
-      d.querySelector('img').addEventListener('click',()=>abrirLightbox(src));
-      d.querySelector('.del').addEventListener('click',ev=>{
-        ev.stopPropagation();
-        itens.splice(i,1);store.set(key,itens);render();
-        toast(`${nome} removido.`);
-      });
-      grid.appendChild(d);
-    });
-  }
-  async function addFiles(files){
-    const imgs=[...files].filter(f=>f.type.startsWith('image/'));
-    if(!imgs.length)return;
-    toast('⏳ Carregando...');
-    for(const f of imgs){
-      const data=await comprimir(f);
-      itens.push(data);
-      if(!store.set(key,itens)){itens.pop();break}
-    }
-    render();
-    toast(`✅ ${imgs.length>1?imgs.length+' imagens adicionadas':nome+' adicionado'}!`);
-  }
-  zone.addEventListener('click',()=>input.click());
-  input.addEventListener('change',()=>{addFiles(input.files);input.value=''});
-  ['dragenter','dragover'].forEach(ev=>zone.addEventListener(ev,e=>{e.preventDefault();zone.classList.add('drag')}));
-  ['dragleave','drop'].forEach(ev=>zone.addEventListener(ev,e=>{e.preventDefault();zone.classList.remove('drag')}));
-  zone.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
-  render();
-  return{get:()=>itens,set(v){itens=v;store.set(key,itens);render()}};
-}
-const certs=setupMedia('kf_certs','cert-zone','cert-input','cert-grid','cert-empty','Certificado',CERTS_FIXOS);
+const certGrid=document.getElementById('cert-grid');
+CERTS_FIXOS.forEach(f=>{
+  const d=document.createElement('div');
+  d.className='media-item';
+  d.title=f.titulo||'';
+  d.innerHTML=`<img src="${f.src}" alt="${f.titulo||'Certificado'}" loading="lazy">`;
+  d.querySelector('img').addEventListener('click',()=>abrirLightbox(f.src));
+  certGrid.appendChild(d);
+});
 
 /* lightbox */
 const lb=document.getElementById('lightbox');
@@ -739,7 +650,7 @@ renderLinks();
    BACKUP — exportar / importar tudo (certificados, fotos, links)
    ============================================================= */
 document.getElementById('btn-export').addEventListener('click',()=>{
-  const data={certs:certs.get(),links:meusLinks,v:1};
+  const data={links:meusLinks,v:2};
   const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -755,7 +666,6 @@ importInput.addEventListener('change',()=>{
   r.onload=()=>{
     try{
       const d=JSON.parse(r.result);
-      if(d.certs)certs.set(d.certs);
       if(d.links){meusLinks=d.links;store.set('kf_links',meusLinks);renderLinks()}
       toast('📂 Conteúdo restaurado!');
     }catch{toast('⚠️ Arquivo inválido.')}
