@@ -6,6 +6,7 @@
 <title>Nelson Neto — Desenvolvedor Full-stack</title>
 <meta name="description" content="Desenvolvedor full-stack em Santa Maria/RS. Node.js, Express, Prisma e PostgreSQL. Graduando em Engenharia de Software, buscando a primeira vaga como desenvolvedor júnior." />
 <meta name="theme-color" content="#F7F1E4" />
+<script>document.documentElement.className="js";</script>
 <link rel="canonical" href="https://mkbraion.github.io/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Nelson Neto — Desenvolvedor Full-stack" />
@@ -239,13 +240,13 @@ footer a{color:var(--fg-soft)}
 #aviso.ver{transform:translate(-50%,0)}
 
 /* ---------- revelação por varredura ---------- */
-.rev{clip-path:inset(0 100% 0 0); opacity:.001; transition:clip-path .78s var(--ease), opacity .38s linear}
-.rev.vis{clip-path:inset(0 0 0 0); opacity:1}
+.js .rev{clip-path:inset(0 100% 0 0); opacity:.001; transition:clip-path .78s var(--ease), opacity .38s linear}
+.js .rev.vis{clip-path:inset(0 0 0 0); opacity:1}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important; transition:none!important}
-  .rev{clip-path:none; opacity:1}
+  .js .rev{clip-path:none; opacity:1}
   .stroke::before{transform:scaleX(1)}
   .faixa-in{animation:none}
 }
@@ -516,21 +517,12 @@ footer a{color:var(--fg-soft)}
   "use strict";
   var calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- revelação por varredura ---- */
-  var alvos = document.querySelectorAll(".rev");
-  if (calmo || !("IntersectionObserver" in window)) {
-    alvos.forEach(function(el){ el.classList.add("vis"); });
-  } else {
-    var obs = new IntersectionObserver(function(ents){
-      ents.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add("vis"); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
-    alvos.forEach(function(el){ obs.observe(el); });
-  }
+  /* ---- revelação por varredura + contadores ----
+     Checagem por posição, não por IntersectionObserver: se o callback não
+     for entregue por algum motivo, o conteúdo nunca fica preso invisível. */
+  var revs = [].slice.call(document.querySelectorAll(".rev"));
+  var nums = [].slice.call(document.querySelectorAll("[data-conta]"));
 
-  /* ---- contadores ---- */
-  var nums = document.querySelectorAll("[data-conta]");
   function conta(el){
     var alvo = +el.dataset.conta, suf = el.dataset.suf || "", txt = el.dataset.txt;
     if (txt){ el.textContent = txt; return; }
@@ -543,12 +535,43 @@ footer a{color:var(--fg-soft)}
       if (p < 1) requestAnimationFrame(passo);
     });
   }
-  if ("IntersectionObserver" in window){
-    var obsN = new IntersectionObserver(function(ents){
-      ents.forEach(function(e){ if (e.isIntersecting){ conta(e.target); obsN.unobserve(e.target); } });
-    }, { threshold: 0.5 });
-    nums.forEach(function(el){ obsN.observe(el); });
-  } else nums.forEach(conta);
+
+  function naTela(el, folga){
+    var r = el.getBoundingClientRect();
+    return r.top < (window.innerHeight || 0) - folga && r.bottom > 0;
+  }
+
+  function checar(){
+    for (var i = revs.length - 1; i >= 0; i--){
+      if (naTela(revs[i], 40)){ revs[i].classList.add("vis"); revs.splice(i, 1); }
+    }
+    for (var j = nums.length - 1; j >= 0; j--){
+      if (naTela(nums[j], 0)){ conta(nums[j]); nums.splice(j, 1); }
+    }
+    if (!revs.length && !nums.length){
+      window.removeEventListener("scroll", agendar);
+      window.removeEventListener("resize", agendar);
+    }
+  }
+
+  var pendente = false;
+  function agendar(){
+    if (pendente) return;
+    pendente = true;
+    requestAnimationFrame(function(){ pendente = false; checar(); });
+  }
+
+  if (calmo){
+    revs.forEach(function(el){ el.classList.add("vis"); });
+    nums.forEach(conta);
+  } else {
+    window.addEventListener("scroll", agendar, { passive: true });
+    window.addEventListener("resize", agendar);
+    checar();
+    // rede de segurança: se algo impedir o scroll de rodar, nada fica escondido.
+    setTimeout(checar, 400);
+    window.addEventListener("load", checar);
+  }
 
   /* ---- aviso ---- */
   var av = document.getElementById("aviso"), avT;
