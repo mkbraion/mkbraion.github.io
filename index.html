@@ -240,13 +240,26 @@ footer a{color:var(--fg-soft)}
 #aviso.ver{transform:translate(-50%,0)}
 
 /* ---------- revelação por varredura ---------- */
-.js .rev{clip-path:inset(0 100% 0 0); opacity:.001; transition:clip-path .78s var(--ease), opacity .38s linear}
-.js .rev.vis{clip-path:inset(0 0 0 0); opacity:1}
+/* Entrada por animacao, nunca por estado escondido que dependa de JS.
+   Se a animacao nao rodar, o conteudo aparece normalmente - e impossivel
+   a pagina ficar em branco. */
+.js .rev{animation:varre .85s var(--ease) both; animation-delay:var(--atraso,0s)}
+@keyframes varre{
+  from{clip-path:inset(0 100% 0 0); opacity:0}
+  to  {clip-path:inset(0 0 0 0);    opacity:1}
+}
+
+
+#historia .rev:nth-of-type(1){--atraso:.05s} #historia .rev:nth-of-type(2){--atraso:.16s}
+#projetos .rev:nth-of-type(1){--atraso:.05s} #projetos .rev:nth-of-type(2){--atraso:.16s}
+#principios .rev:nth-of-type(1){--atraso:.05s} #principios .rev:nth-of-type(2){--atraso:.16s}
+#formacao .rev:nth-of-type(1){--atraso:.05s} #formacao .rev:nth-of-type(2){--atraso:.16s}
+#contato .rev:nth-of-type(1){--atraso:.05s} #contato .rev:nth-of-type(2){--atraso:.16s}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important; transition:none!important}
-  .js .rev{clip-path:none; opacity:1}
+  .js .rev{animation:none}
   .stroke::before{transform:scaleX(1)}
   .faixa-in{animation:none}
 }
@@ -517,13 +530,10 @@ footer a{color:var(--fg-soft)}
   "use strict";
   var calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- revelação por varredura + contadores ----
-     Checagem por posição, não por IntersectionObserver: se o callback não
-     for entregue por algum motivo, o conteúdo nunca fica preso invisível. */
-  var revs = [].slice.call(document.querySelectorAll(".rev"));
-  var nums = [].slice.call(document.querySelectorAll("[data-conta]"));
-
-  function conta(el){
+  /* ---- contadores ----
+     Rodam no carregamento. O setTimeout crava o valor final caso a
+     animacao por quadro nao chegue a rodar. */
+  [].slice.call(document.querySelectorAll("[data-conta]")).forEach(function(el){
     var alvo = +el.dataset.conta, suf = el.dataset.suf || "", txt = el.dataset.txt;
     if (txt){ el.textContent = txt; return; }
     if (calmo){ el.textContent = alvo + suf; return; }
@@ -531,55 +541,11 @@ footer a{color:var(--fg-soft)}
     setTimeout(function(){ if (!pronto) el.textContent = alvo + suf; }, dur + 400);
     requestAnimationFrame(function passo(t){
       if (ini === null) ini = t;
-      var p = Math.min((t - ini) / dur, 1);
-      el.textContent = Math.round(alvo * (1 - Math.pow(1 - p, 3))) + suf;
-      if (p < 1) requestAnimationFrame(passo); else pronto = true;
+      var q = Math.min((t - ini) / dur, 1);
+      el.textContent = Math.round(alvo * (1 - Math.pow(1 - q, 3))) + suf;
+      if (q < 1) requestAnimationFrame(passo); else pronto = true;
     });
-  }
-
-  function naTela(el, folga){
-    var r = el.getBoundingClientRect();
-    return r.top < (window.innerHeight || 0) - folga && r.bottom > 0;
-  }
-
-  function checar(){
-    for (var i = revs.length - 1; i >= 0; i--){
-      if (naTela(revs[i], 40)){ revs[i].classList.add("vis"); revs.splice(i, 1); }
-    }
-    for (var j = nums.length - 1; j >= 0; j--){
-      if (naTela(nums[j], 0)){ conta(nums[j]); nums.splice(j, 1); }
-    }
-    if (!revs.length && !nums.length){
-      window.removeEventListener("scroll", agendar);
-      window.removeEventListener("resize", agendar);
-    }
-  }
-
-  /* Sem rAF no caminho crítico: se o quadro não for pintado (aba em segundo
-     plano, painel sem composição), o rAF nunca chama de volta e o conteúdo
-     ficaria escondido pra sempre. Throttle por relógio + um intervalo de
-     segurança que se desliga sozinho quando tudo já apareceu. */
-  var ultimo = 0;
-  function agendar(){
-    var agora = Date.now();
-    if (agora - ultimo < 90) return;
-    ultimo = agora;
-    checar();
-  }
-
-  if (calmo){
-    revs.forEach(function(el){ el.classList.add("vis"); });
-    nums.forEach(conta);
-  } else {
-    window.addEventListener("scroll", agendar, { passive: true });
-    window.addEventListener("resize", agendar);
-    window.addEventListener("load", checar);
-    checar();
-    var rede = setInterval(function(){
-      checar();
-      if (!revs.length && !nums.length) clearInterval(rede);
-    }, 300);
-  }
+  });
 
   /* ---- aviso ---- */
   var av = document.getElementById("aviso"), avT;
