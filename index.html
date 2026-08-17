@@ -256,6 +256,22 @@ footer a{color:var(--fg-soft)}
 #formacao .rev:nth-of-type(1){--atraso:.05s} #formacao .rev:nth-of-type(2){--atraso:.16s}
 #contato .rev:nth-of-type(1){--atraso:.05s} #contato .rev:nth-of-type(2){--atraso:.16s}
 
+
+/* ---------- certificados ---------- */
+#certificados{--ac:var(--verde)}
+.trilhas{display:flex; flex-direction:column; gap:2px; border:2px solid var(--fg); background:var(--fg)}
+.trilha{background:var(--bg2); padding:26px clamp(18px,3vw,32px)}
+.trilha-cab{display:flex; align-items:baseline; gap:14px}
+.trilha-cab h3{font-family:var(--display); font-size:clamp(19px,2.4vw,25px); letter-spacing:-.02em; margin:0}
+.trilha-n{font-family:var(--mono); font-size:12px; font-weight:700; color:var(--on-color); background:var(--tc,var(--verde)); padding:2px 9px; border-radius:2px}
+.trilha-sub{margin:6px 0 16px; color:var(--fg-soft); font-size:14.5px}
+.cert-lista{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px}
+.cert{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); border:1px solid var(--line); padding:11px 13px; border-radius:3px; background:var(--bg); transition:border-color .16s, transform .16s var(--ease)}
+.cert:hover,.cert:focus-visible{border-color:var(--ac); transform:translateX(3px)}
+.cert-t{flex:1; font-size:13.5px; line-height:1.35}
+.cert-seta{font-family:var(--mono); color:var(--ac); flex:none}
+@media (max-width:520px){ .cert-lista{grid-template-columns:1fr} }
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important; transition:none!important}
@@ -275,6 +291,7 @@ footer a{color:var(--fg-soft)}
       <a href="#projetos">Projetos</a>
       <a href="#principios">Como trabalho</a>
       <a href="#formacao">Formação</a>
+      <a href="#certificados">Certificados</a>
       <a href="#contato">Contato</a>
     </nav>
   </div>
@@ -470,7 +487,7 @@ footer a{color:var(--fg-soft)}
       </li>
       <li>
         <span class="q">Certificações</span>
-        <div><h3>Banco de Dados</h3><p>Instituto Federal / Aprenda Mais. É a matéria que eu mais uso no dia a dia, e a que mais gosto.</p></div>
+        <div><h3>Certificações</h3><p>Banco de Dados no Instituto Federal / Aprenda Mais, e <a href="#certificados">36 certificados da DIO</a> em Python, IA, Node.js e dados.</p></div>
       </li>
       <li>
         <span class="q">Estudando agora</span>
@@ -480,11 +497,108 @@ footer a{color:var(--fg-soft)}
   </div>
 </section>
 
+
+<!-- ============================ CERTIFICADOS ============================ -->
+<section id="certificados">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">05</span>
+      <div>
+        <h2>36 certificados, e a conta segue subindo.</h2>
+        <p>Formação contínua na DIO — cada um leva à página pública de verificação. Agrupei por trilha pra mostrar onde eu fui a fundo.</p>
+      </div>
+    </div>
+    <div class="trilhas">
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Python</h3>
+        <span class="trilha-n" style="--tc:var(--verde)">14</span>
+      </div>
+      <p class="trilha-sub">A trilha completa, do primeiro passo aos arquivos e coleções.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/IR7OPAGX/share" target="_blank" rel="noopener"><span class="cert-t">Ambiente de Desenvolvimento e Primeiros Passos com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VDB3D2DJ/share" target="_blank" rel="noopener"><span class="cert-t">Conhecendo a Linguagem de Programação Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CBGHWLSU/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Python: Primeiros Passos e Fundamentos</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VSDOBKKU/share" target="_blank" rel="noopener"><span class="cert-t">Tipos de Operadores com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/NPUOGXMA/share" target="_blank" rel="noopener"><span class="cert-t">Estruturas Condicionais e de Repetição em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/BBBZIMTT/share" target="_blank" rel="noopener"><span class="cert-t">Manipulando Strings com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/AG9NPSS2/share" target="_blank" rel="noopener"><span class="cert-t">Desafios de Código: Aperfeiçoe Sua Lógica e Pensamento Computacional</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/MUTPEZML/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Listas em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/PAHEFXJT/share" target="_blank" rel="noopener"><span class="cert-t">Conhecendo Tuplas em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/BESAJZOM/share" target="_blank" rel="noopener"><span class="cert-t">Explorando Conjuntos em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/AJ54URKU/share" target="_blank" rel="noopener"><span class="cert-t">Aprendendo a Utilizar Dicionários em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/NKCFUZGL/share" target="_blank" rel="noopener"><span class="cert-t">Dominando Funções Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/4YLO4NNR/share" target="_blank" rel="noopener"><span class="cert-t">Estruturas em Python: Dados, Coleções e Funções</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/1XE6RMOO/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Arquivos e Dados Externos em Python</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Inteligência Artificial &amp; LLMs</h3>
+        <span class="trilha-n" style="--tc:var(--tomate)">7</span>
+      </div>
+      <p class="trilha-sub">Modelos de linguagem, IA generativa e engenharia de prompt.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/QA6GPMT1/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos da IA Moderna: Machine Learning, LLMs, IA Generativa e Agentes</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/RXCA2P0A/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos de Modelos de Linguagem de Grande Escala</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/JGVJKOKM/share" target="_blank" rel="noopener"><span class="cert-t">IA Generativa: Fundamentos, Prompting e Aplicações</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/KTNZJNW8/share" target="_blank" rel="noopener"><span class="cert-t">Introdução à Engenharia de Prompts</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/IPUHAHOT/share" target="_blank" rel="noopener"><span class="cert-t">Técnicas de Engenharia de Prompt</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/FHPO92KR/share" target="_blank" rel="noopener"><span class="cert-t">Treinando uma IA de Aprendizagem: Explore o Poder do NotebookLM</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/XGQJ3YQH/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Microsoft Copilot</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Node.js &amp; Back-end</h3>
+        <span class="trilha-n" style="--tc:var(--azul)">4</span>
+      </div>
+      <p class="trilha-sub">Fundamentos do ambiente onde eu construo minhas APIs.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/F2ZQIRZQ/share" target="_blank" rel="noopener"><span class="cert-t">Bem-Vindo ao Mundo do Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/H1RXUNXL/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/UVNWDLK8/share" target="_blank" rel="noopener"><span class="cert-t">Instalando Ambiente de Desenvolvimento Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/70M22JWA/share" target="_blank" rel="noopener"><span class="cert-t">Inicializando Projetos Node.js</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Dados, SQL &amp; BI</h3>
+        <span class="trilha-n" style="--tc:var(--ouro)">5</span>
+      </div>
+      <p class="trilha-sub">Banco relacional, ETL e análise — a base dos projetos.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/SMRZ8Q9R/share" target="_blank" rel="noopener"><span class="cert-t">Introdução a Banco de Dados Relacionais</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/5OTRG5BP/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos de Dados: Excel, SQL e Business Intelligence</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/B3NLUCBG/share" target="_blank" rel="noopener"><span class="cert-t">Criando um Processo de ETL com Excel e Power Query</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/Q2IWBL9G/share" target="_blank" rel="noopener"><span class="cert-t">Utilizando Microsoft Copilot para escrever consultas SQL</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VB6MXFYR/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Excel 365</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Bootcamps &amp; Carreira</h3>
+        <span class="trilha-n" style="--tc:var(--azul)">6</span>
+      </div>
+      <p class="trilha-sub">Programas de Itaú, Bradesco e Riachuelo com foco em IA.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/KUDBNCX0/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Itaú - Java com Inteligência Artificial</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CUG3ATK5/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Bradesco - GenAI, Dados &amp; Cyber</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/O3P7VM6T/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Riachuelo - Criando produtos com IA</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CW99P5TU/share" target="_blank" rel="noopener"><span class="cert-t">Extraindo Insights do Feedback de Clientes Bancários</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/WNEA92WT/share" target="_blank" rel="noopener"><span class="cert-t">Desafios de Projetos: Crie Um Portfólio Vencedor</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/LRQPPGGC/share" target="_blank" rel="noopener"><span class="cert-t">Extraindo Insights do Feedback de Clientes Bancários (parte 2)</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ CONTATO ============================ -->
 <section id="contato">
   <div class="wrap">
     <div class="cab rev">
-      <span class="carimbo">05</span>
+      <span class="carimbo">06</span>
       <div>
         <h2>Vamos conversar?</h2>
         <p>Recrutador, gestor de time ou dev — deixe seu contato que eu retorno. Se preferir, os canais diretos estão ao lado.</p>
