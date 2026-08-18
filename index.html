@@ -527,12 +527,13 @@ footer a{color:var(--fg-soft)}
     var alvo = +el.dataset.conta, suf = el.dataset.suf || "", txt = el.dataset.txt;
     if (txt){ el.textContent = txt; return; }
     if (calmo){ el.textContent = alvo + suf; return; }
-    var ini = null, dur = 1100;
+    var ini = null, dur = 1100, pronto = false;
+    setTimeout(function(){ if (!pronto) el.textContent = alvo + suf; }, dur + 400);
     requestAnimationFrame(function passo(t){
       if (ini === null) ini = t;
       var p = Math.min((t - ini) / dur, 1);
       el.textContent = Math.round(alvo * (1 - Math.pow(1 - p, 3))) + suf;
-      if (p < 1) requestAnimationFrame(passo);
+      if (p < 1) requestAnimationFrame(passo); else pronto = true;
     });
   }
 
@@ -554,11 +555,16 @@ footer a{color:var(--fg-soft)}
     }
   }
 
-  var pendente = false;
+  /* Sem rAF no caminho crítico: se o quadro não for pintado (aba em segundo
+     plano, painel sem composição), o rAF nunca chama de volta e o conteúdo
+     ficaria escondido pra sempre. Throttle por relógio + um intervalo de
+     segurança que se desliga sozinho quando tudo já apareceu. */
+  var ultimo = 0;
   function agendar(){
-    if (pendente) return;
-    pendente = true;
-    requestAnimationFrame(function(){ pendente = false; checar(); });
+    var agora = Date.now();
+    if (agora - ultimo < 90) return;
+    ultimo = agora;
+    checar();
   }
 
   if (calmo){
@@ -567,10 +573,12 @@ footer a{color:var(--fg-soft)}
   } else {
     window.addEventListener("scroll", agendar, { passive: true });
     window.addEventListener("resize", agendar);
-    checar();
-    // rede de segurança: se algo impedir o scroll de rodar, nada fica escondido.
-    setTimeout(checar, 400);
     window.addEventListener("load", checar);
+    checar();
+    var rede = setInterval(function(){
+      checar();
+      if (!revs.length && !nums.length) clearInterval(rede);
+    }, 300);
   }
 
   /* ---- aviso ---- */
