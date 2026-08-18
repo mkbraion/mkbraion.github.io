@@ -243,11 +243,8 @@ footer a{color:var(--fg-soft)}
 /* Entrada por animacao, nunca por estado escondido que dependa de JS.
    Se a animacao nao rodar, o conteudo aparece normalmente - e impossivel
    a pagina ficar em branco. */
-.js .rev{animation:varre .85s var(--ease) both; animation-delay:var(--atraso,0s)}
-@keyframes varre{
-  from{clip-path:inset(0 100% 0 0); opacity:0}
-  to  {clip-path:inset(0 0 0 0);    opacity:1}
-}
+.js .rev{animation:surge .6s var(--ease) both; animation-delay:var(--atraso,0s)}
+@keyframes surge{ from{transform:translateY(16px)} to{transform:none} }
 
 
 #historia .rev:nth-of-type(1){--atraso:.05s} #historia .rev:nth-of-type(2){--atraso:.16s}
