@@ -1,627 +1,706 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MK O Dev — Desenvolvedor de Software</title>
-<meta name="description" content="Portfólio de desenvolvimento de software: sites, apps, automações, IA e dados.">
-<meta name="theme-color" content="#05060e">
-<meta property="og:title" content="MK O Dev — Desenvolvedor de Software">
-<meta property="og:description" content="Sites, aplicativos, automações e IA. Bora tirar sua ideia do papel? 🚀">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://mkbraion.github.io/">
-<meta property="og:image" content="https://mkbraion.github.io/og.jpg">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nelson Neto — Desenvolvedor Full-stack</title>
+<meta name="description" content="Desenvolvedor full-stack em Santa Maria/RS. Node.js, Express, Prisma e PostgreSQL. Graduando em Engenharia de Software, buscando a primeira vaga como desenvolvedor júnior." />
+<meta name="theme-color" content="#F7F1E4" />
+<script>document.documentElement.className="js";</script>
+<link rel="canonical" href="https://mkbraion.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Nelson Neto — Desenvolvedor Full-stack" />
+<meta property="og:description" content="Software que resolve problema de negócio de verdade. Node.js, Express, Prisma, PostgreSQL." />
+<meta property="og:url" content="https://mkbraion.github.io/" />
+<meta property="og:image" content="https://mkbraion.github.io/og.jpg" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23E1332B'/%3E%3Cpath d='M5 18V6l7 7 7-7v12' stroke='%23F7F1E4' stroke-width='2.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E" />
+
 <style>
+/* ==========================================================================
+   Paleta ancorada em letreiro de comércio pintado à mão — o mundo que o
+   software daqui atende. Cada seção usa UMA cor forte; a página inteira é
+   viva, mas nenhuma tela fica poluída.
+   ========================================================================== */
 :root{
-  --bg:#05060e;
-  --surface:rgba(255,255,255,.04);
-  --border:rgba(255,255,255,.09);
-  --text:#eef0ff;
-  --muted:#9aa0c3;
-  --c1:#7c3aed;
-  --c2:#06b6d4;
-  --c3:#f43f5e;
-  --grad:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6);
-  --scroll:0;
+  --bg:#F7F1E4; --bg2:#FFFCF5; --fg:#16120E; --fg-soft:#5D5245; --line:#DCD0B9;
+  --tomate:#D62B22; --ouro:#E0A008; --verde:#0C6E46; --azul:#11538F;
+  --on-color:#FFFDF7;
+  --display:"Segoe UI Black","Arial Black","Helvetica Neue",system-ui,sans-serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",sans-serif;
+  --mono:ui-monospace,"SF Mono",Consolas,"Liberation Mono",monospace;
+  --pad:clamp(20px,5vw,64px);
+  --ease:cubic-bezier(.16,.84,.44,1);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141210; --bg2:#1D1915; --fg:#F4ECDE; --fg-soft:#A39683; --line:#332C23;
+    --tomate:#F0574D; --ouro:#F5BE2E; --verde:#27A272; --azul:#4A8FE0;
+    --on-color:#12100D;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141210; --bg2:#1D1915; --fg:#F4ECDE; --fg-soft:#A39683; --line:#332C23;
+  --tomate:#F0574D; --ouro:#F5BE2E; --verde:#27A272; --azul:#4A8FE0;
+  --on-color:#12100D;
+}
+
+*{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-  overflow-x:hidden;
-  line-height:1.6;
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--sans); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
-::selection{background:#7c3aed;color:#fff}
+img{max-width:100%}
+a{color:inherit}
+::selection{background:var(--tomate); color:var(--on-color)}
+:focus-visible{outline:3px solid var(--azul); outline-offset:3px}
 
-/* ===== FUNDO VIVO — se contorce conforme o scroll ===== */
-#bg{
-  position:fixed;inset:0;z-index:-2;overflow:hidden;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(124,58,237,.18),transparent 60%),
-    var(--bg);
-}
-.blob{
-  position:absolute;border-radius:50%;
-  filter:blur(70px);opacity:.42;
-  will-change:transform,border-radius;
-  transition:border-radius .4s ease;
-  transform:translateZ(0);
-}
-.blob1{width:55vmax;height:55vmax;top:-20vmax;left:-15vmax;background:radial-gradient(circle,#7c3aed,transparent 65%)}
-.blob2{width:45vmax;height:45vmax;top:30vh;right:-18vmax;background:radial-gradient(circle,#06b6d4,transparent 65%)}
-.blob3{width:50vmax;height:50vmax;bottom:-25vmax;left:20vw;background:radial-gradient(circle,#f43f5e,transparent 65%)}
-#grid-overlay{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:56px 56px;
-  mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black,transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black,transparent 75%);
-}
+.wrap{max-width:1240px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad)}
+section{padding:clamp(72px,11vw,140px) 0; position:relative}
 
-/* ===== BARRA DE PROGRESSO ===== */
-#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:1000;border-radius:0 3px 3px 0}
+/* ---------- cabeçalho ---------- */
+.top{
+  position:sticky; top:0; z-index:60; background:var(--bg);
+  border-bottom:2px solid var(--fg);
+}
+.top .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; height:62px}
+.brand{font-family:var(--display); font-size:19px; letter-spacing:-.02em; text-decoration:none; display:flex; align-items:center; gap:9px}
+.brand .sq{width:15px; height:15px; background:var(--tomate); display:inline-block}
+.top nav{display:flex; gap:4px; font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em}
+.top nav a{text-decoration:none; padding:7px 11px; color:var(--fg-soft)}
+.top nav a:hover{color:var(--on-color); background:var(--fg)}
+@media (max-width:760px){ .top nav{display:none} }
 
-/* ===== NAVEGAÇÃO ===== */
-nav{
-  position:fixed;top:14px;left:50%;transform:translateX(-50%);
-  z-index:900;display:flex;align-items:center;gap:4px;
-  padding:8px 12px;border-radius:99px;
-  background:rgba(10,12,26,.65);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border:1px solid var(--border);
-  box-shadow:0 8px 32px rgba(0,0,0,.45);
-  max-width:calc(100vw - 20px);
-  transition:box-shadow .3s;
+/* ---------- capa ---------- */
+#capa{padding-top:clamp(56px,9vw,104px); padding-bottom:clamp(48px,7vw,88px)}
+.disp{
+  font-family:var(--display); font-weight:900;
+  font-size:clamp(38px,8.4vw,104px); line-height:.97; letter-spacing:-.035em;
+  margin:0; text-wrap:balance;
 }
-nav.scrolled{box-shadow:0 8px 40px rgba(124,58,237,.25)}
-nav .logo{
-  font-weight:800;font-size:.95rem;padding:0 12px 0 6px;white-space:nowrap;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+/* pincelada: bloco de cor que varre por trás da palavra */
+.stroke{position:relative; display:inline-block; padding:0 .12em; color:var(--fg)}
+.stroke::before{
+  content:""; position:absolute; inset:.06em -.02em .04em;
+  background:var(--c,var(--tomate)); z-index:-1;
+  transform:scaleX(0); transform-origin:left center;
+  animation:swipe .62s var(--ease) forwards; animation-delay:var(--d,0s);
 }
-nav a.tab{
-  color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:600;
-  padding:8px 14px;border-radius:99px;white-space:nowrap;
-  transition:color .25s,background .25s;
-}
-nav a.tab:hover{color:#fff}
-nav a.tab.active{color:#fff;background:rgba(124,58,237,.35)}
-#nav-links{display:contents}
-#menu-btn{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:4px 10px}
+.stroke.on{color:var(--on-color)}
+@keyframes swipe{to{transform:scaleX(1)}}
 
-/* ===== SEÇÕES ===== */
-section{max-width:1080px;margin:0 auto;padding:110px 24px 40px}
-.section-tag{
-  display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-  color:#22d3ee;border:1px solid rgba(34,211,238,.3);border-radius:99px;padding:5px 16px;margin-bottom:16px;
-  background:rgba(34,211,238,.06);
+.tagline{
+  display:inline-flex; align-items:center; gap:9px; margin:0 0 22px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  border:2px solid var(--fg); padding:6px 12px;
 }
-h2.section-title{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:800;margin-bottom:12px;letter-spacing:-.5px}
-.section-sub{color:var(--muted);max-width:640px;margin-bottom:40px}
+.tagline .pulse{width:9px; height:9px; background:var(--verde); border-radius:50%; animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 
-/* animação de entrada */
-.reveal{opacity:0;transform:translateY(46px) scale(.98);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
-.reveal.in{opacity:1;transform:none}
-
-/* ===== HERO ===== */
-#inicio{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:90px}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;width:fit-content;
-  font-size:.8rem;color:#a5f3fc;padding:6px 16px;border-radius:99px;
-  border:1px solid rgba(34,211,238,.35);background:rgba(34,211,238,.07);margin-bottom:22px;
-}
-.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399;animation:pulse 1.6s infinite}
-@keyframes pulse{50%{opacity:.35}}
-h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:900;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px}
-h1 .grad{background:var(--grad);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
-@keyframes shine{to{background-position:220% center}}
-#typed-wrap{font-size:clamp(1rem,2.6vw,1.35rem);color:var(--muted);min-height:2em;margin-bottom:14px}
-#typed{color:#22d3ee;font-weight:700}
-.cursor-blink{display:inline-block;width:2px;height:1.1em;background:#22d3ee;vertical-align:text-bottom;animation:blink .8s step-end infinite;margin-left:2px}
-@keyframes blink{50%{opacity:0}}
-.hero-desc{color:var(--muted);max-width:600px;margin-bottom:34px}
-.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.lede{font-size:clamp(17px,2vw,21px); max-width:60ch; margin:30px 0 0; color:var(--fg-soft)}
+.lede b{color:var(--fg); font-weight:700}
+.acoes{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px}
 .btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:13px 28px;border-radius:14px;font-weight:700;font-size:.95rem;
-  text-decoration:none;cursor:pointer;border:none;
-  transition:transform .2s,box-shadow .2s,background .2s;
+  font-family:var(--mono); font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+  text-decoration:none; padding:14px 22px; border:2px solid var(--fg); background:var(--bg); color:var(--fg);
+  transition:transform .16s var(--ease), background .16s, color .16s; display:inline-block;
 }
-.btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(90deg,var(--c1),var(--c2));color:#fff;box-shadow:0 8px 28px rgba(124,58,237,.4)}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(124,58,237,.55)}
-.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.25)}
-.hero-stats{display:flex;gap:38px;margin-top:56px;flex-wrap:wrap}
-.stat b{font-size:1.7rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat span{display:block;font-size:.8rem;color:var(--muted)}
-.scroll-hint{margin-top:60px;color:var(--muted);font-size:.8rem;display:flex;align-items:center;gap:10px;animation:float 2.4s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(7px)}}
+.btn:hover{transform:translate(-3px,-3px); box-shadow:5px 5px 0 var(--fg)}
+.btn.cheio{background:var(--fg); color:var(--on-color)}
+.btn.cheio:hover{box-shadow:5px 5px 0 var(--tomate)}
 
-/* ===== CARDS (formação / serviços) ===== */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
-.card{
-  position:relative;padding:30px 26px;border-radius:22px;
-  background:var(--surface);border:1px solid var(--border);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  transition:transform .3s,border-color .3s,box-shadow .3s;
-  overflow:hidden;
-}
-.card::before{
-  content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(124,58,237,.16),transparent 60%);
-  pointer-events:none;
-}
-.card:hover{transform:translateY(-7px);border-color:rgba(124,58,237,.45);box-shadow:0 18px 44px rgba(0,0,0,.4)}
-.card:hover::before{opacity:1}
-.card .icon{
-  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:18px;
-  background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(6,182,212,.25));
-  border:1px solid rgba(124,58,237,.35);
-}
-.card h3{font-size:1.15rem;margin-bottom:8px}
-.card p{color:var(--muted);font-size:.92rem}
-.pill{
-  display:inline-block;margin-top:14px;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:4px 12px;border-radius:99px;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3);
-}
-.pill.pill-client{margin-left:8px;background:rgba(251,191,36,.13);color:#fbbf24;border-color:rgba(251,191,36,.35)}
-.card.card-featured{border-color:rgba(251,191,36,.35);box-shadow:0 10px 30px rgba(251,191,36,.06)}
-.card.card-featured .icon{background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(124,58,237,.22));border-color:rgba(251,191,36,.35)}
+.numeros{display:flex; flex-wrap:wrap; gap:0; margin-top:56px; border:2px solid var(--fg)}
+.numeros div{flex:1 1 150px; padding:20px 22px; border-right:2px solid var(--fg)}
+.numeros div:last-child{border-right:0}
+.numeros b{display:block; font-family:var(--display); font-size:clamp(30px,4.6vw,46px); line-height:1; font-variant-numeric:tabular-nums}
+.numeros span{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-soft)}
+@media (max-width:620px){ .numeros div{border-right:0; border-bottom:2px solid var(--fg)} .numeros div:last-child{border-bottom:0} }
 
-@keyframes pop{from{opacity:0;transform:scale(.75)}}
+/* ---------- faixa de letreiro ---------- */
+.faixa{background:var(--fg); color:var(--on-color); padding:15px 0; overflow:hidden; border-top:2px solid var(--fg); border-bottom:2px solid var(--fg)}
+.faixa-in{display:flex; gap:0; width:max-content; animation:corre 42s linear infinite}
+.faixa:hover .faixa-in{animation-play-state:paused}
+.faixa span{font-family:var(--display); font-size:19px; letter-spacing:-.01em; padding:0 22px; white-space:nowrap; display:flex; align-items:center; gap:22px}
+.faixa span::after{content:""; width:9px; height:9px; background:var(--ouro); display:inline-block}
+@keyframes corre{to{transform:translateX(-50%)}}
 
-/* ===== LINKS ===== */
-.links-list{display:flex;flex-direction:column;gap:14px;max-width:640px}
-.link-item{
-  display:flex;align-items:center;gap:16px;
-  padding:18px 22px;border-radius:16px;text-decoration:none;color:var(--text);
-  background:var(--surface);border:1px solid var(--border);
-  transition:transform .25s,border-color .25s,background .25s;
-  animation:pop .4s ease;position:relative;
+/* ---------- títulos de seção ---------- */
+.cab{display:flex; align-items:flex-start; gap:20px; margin-bottom:44px; max-width:74ch}
+.carimbo{
+  font-family:var(--mono); font-size:13px; font-weight:700; flex:none;
+  width:46px; height:46px; display:grid; place-items:center;
+  border:2px solid var(--ac); color:var(--ac); transform:rotate(-6deg);
 }
-.link-item:hover{transform:translateX(8px);border-color:rgba(34,211,238,.5);background:rgba(34,211,238,.06)}
-.link-item .li-icon{font-size:1.4rem}
-.link-item .li-body{flex:1;min-width:0}
-.link-item .li-body b{display:block}
-.link-item .li-body span{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
-.link-item .arrow{color:var(--muted);transition:transform .25s}
-.link-item:hover .arrow{transform:translateX(5px);color:#22d3ee}
+.cab h2{font-family:var(--display); font-size:clamp(27px,4.2vw,44px); line-height:1.04; letter-spacing:-.028em; margin:0; text-wrap:balance}
+.cab p{margin:12px 0 0; color:var(--fg-soft)}
 
-/* ===== CONTATO ===== */
-.contact-form{
-  display:flex;flex-direction:column;gap:14px;max-width:640px;
-  padding:28px;border-radius:22px;
-  background:var(--surface);border:1px solid var(--border);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-}
-.contact-form input,.contact-form textarea{
-  padding:14px 16px;border-radius:12px;width:100%;
-  background:rgba(0,0,0,.3);border:1px solid var(--border);color:var(--text);
-  font-size:.95rem;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s;
-}
-.contact-form input:focus,.contact-form textarea:focus{border-color:var(--c2);box-shadow:0 0 0 3px rgba(6,182,212,.15)}
-.contact-form textarea{min-height:110px;resize:vertical}
-.form-row{display:flex;gap:12px;flex-wrap:wrap}
-.form-row input{flex:1;min-width:180px}
-.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
-.form-note{font-size:.78rem;color:var(--muted)}
-.btn:disabled{opacity:.6;cursor:wait;transform:none!important}
+/* ---------- história ---------- */
+#historia{--ac:var(--azul)}
+.hist{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(28px,5vw,64px); align-items:start}
+.hist p{margin:0 0 20px; font-size:clamp(17px,1.9vw,19.5px)}
+.hist p:last-child{margin-bottom:0}
+.hist strong{background:var(--azul); color:var(--on-color); padding:1px 6px; font-weight:700}
+.quadro{border:2px solid var(--fg); background:var(--bg2)}
+.quadro .t{background:var(--azul); color:var(--on-color); font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding:10px 16px}
+.quadro ul{list-style:none; margin:0; padding:6px 16px 16px}
+.quadro li{padding:12px 0; border-bottom:1px solid var(--line); font-size:15.5px}
+.quadro li:last-child{border-bottom:0}
+.quadro li b{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--azul); margin-bottom:3px}
+@media (max-width:860px){ .hist{grid-template-columns:1fr} }
 
-/* ===== EFEITO DE CLIQUE (ripple) ===== */
-.btn,nav a.tab,.link-item{position:relative;overflow:hidden}
-.ripple{
-  position:absolute;border-radius:50%;pointer-events:none;
-  background:rgba(255,255,255,.4);transform:scale(0);
-  animation:ripple .65s ease-out forwards;
+/* ---------- projetos ---------- */
+#projetos{--ac:var(--tomate)}
+.grade{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:0; border:2px solid var(--fg); border-right:0; border-bottom:0}
+.proj{
+  position:relative; overflow:hidden; text-decoration:none; display:flex; flex-direction:column;
+  padding:30px 28px 26px; border-right:2px solid var(--fg); border-bottom:2px solid var(--fg);
+  background:var(--bg2); isolation:isolate;
 }
-@keyframes ripple{to{transform:scale(3.4);opacity:0}}
+.proj::before{
+  content:""; position:absolute; inset:0; background:var(--c); z-index:-1;
+  transform:translateY(101%); transition:transform .42s var(--ease);
+}
+.proj:hover::before,.proj:focus-visible::before{transform:translateY(0)}
+.proj:hover,.proj:focus-visible{color:var(--on-color)}
+.proj:hover .p-tec span,.proj:focus-visible .p-tec span{border-color:currentColor}
+.proj:hover .p-mais,.proj:focus-visible .p-mais{color:currentColor}
+.p-top{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px}
+.p-sel{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; border:2px solid currentColor; padding:3px 8px}
+.p-num{font-family:var(--mono); font-size:11px; opacity:.55; font-variant-numeric:tabular-nums}
+.proj h3{font-family:var(--display); font-size:24px; letter-spacing:-.02em; line-height:1.12; margin:0 0 12px}
+.proj p{margin:0 0 20px; font-size:15.5px; line-height:1.62; flex:1}
+.p-tec{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px}
+.p-tec span{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; border:1px solid var(--line); padding:3px 7px}
+.p-mais{font-family:var(--mono); font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-soft); display:flex; align-items:center; gap:8px}
+.p-mais .seta{transition:transform .3s var(--ease)}
+.proj:hover .p-mais .seta{transform:translateX(7px)}
 
-/* ===== RODAPÉ ===== */
-footer{
-  margin-top:80px;padding:44px 24px 34px;text-align:center;
-  border-top:1px solid var(--border);color:var(--muted);font-size:.85rem;
-}
+/* ---------- princípios ---------- */
+#principios{--ac:var(--verde); background:var(--fg); color:var(--on-color)}
+#principios .cab h2{color:var(--on-color)}
+#principios .cab p{color:color-mix(in srgb,var(--on-color) 66%,transparent)}
+#principios .carimbo{--ac:var(--ouro)}
+.prin{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:2px; background:color-mix(in srgb,var(--on-color) 22%,transparent)}
+.prin article{background:var(--fg); padding:28px 26px}
+.prin h3{font-family:var(--display); font-size:20px; letter-spacing:-.015em; margin:0 0 12px; color:var(--ouro)}
+.prin p{margin:0; font-size:15.5px; line-height:1.66; color:color-mix(in srgb,var(--on-color) 80%,transparent)}
+.prin code{font-family:var(--mono); font-size:.88em; background:color-mix(in srgb,var(--on-color) 14%,transparent); padding:1px 5px}
 
-/* toast */
-#toast{
-  position:fixed;bottom:26px;left:50%;transform:translate(-50%,120px);
-  background:rgba(15,17,34,.95);border:1px solid rgba(124,58,237,.5);color:#fff;
-  padding:13px 26px;border-radius:99px;font-size:.88rem;z-index:1300;
-  transition:transform .4s cubic-bezier(.2,1.2,.3,1);box-shadow:0 12px 36px rgba(0,0,0,.5);
-  max-width:90vw;text-align:center;
-}
-#toast.show{transform:translate(-50%,0)}
+/* ---------- formação ---------- */
+#formacao{--ac:var(--ouro)}
+.form-lista{border-top:2px solid var(--fg)}
+.form-lista li{list-style:none; display:grid; grid-template-columns:170px 1fr; gap:20px; padding:22px 0; border-bottom:2px solid var(--fg); align-items:baseline}
+.form-lista .q{font-family:var(--mono); font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ouro)}
+.form-lista h3{font-family:var(--display); font-size:20px; letter-spacing:-.018em; margin:0 0 5px}
+.form-lista p{margin:0; color:var(--fg-soft); font-size:15.5px}
+.form-lista ul{margin:0; padding:0}
+@media (max-width:640px){ .form-lista li{grid-template-columns:1fr; gap:7px} }
 
-/* ===== MOBILE ===== */
-@media(max-width:760px){
-  nav{top:10px;flex-wrap:wrap;justify-content:space-between;border-radius:22px;width:calc(100vw - 20px)}
-  #menu-btn{display:block}
-  #nav-links{display:none;width:100%;flex-direction:column;gap:2px;padding-top:6px}
-  #nav-links.open{display:flex}
-  nav a.tab{padding:11px 14px;border-radius:12px}
-  section{padding:90px 18px 30px}
-  .hero-stats{gap:24px}
+/* ---------- contato ---------- */
+#contato{--ac:var(--tomate)}
+.ct{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,56px); align-items:start}
+form{display:flex; flex-direction:column; gap:12px}
+input,textarea{
+  font-family:var(--sans); font-size:16px; padding:14px 15px; color:var(--fg);
+  background:var(--bg2); border:2px solid var(--fg); border-radius:0; width:100%;
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
+input::placeholder,textarea::placeholder{color:var(--fg-soft)}
+input:focus,textarea:focus{outline:none; border-color:var(--tomate)}
+textarea{min-height:112px; resize:vertical}
+.dupla{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media (max-width:520px){ .dupla{grid-template-columns:1fr} }
+button.btn{cursor:pointer; font-family:var(--mono)}
+button.btn[disabled]{opacity:.55; cursor:progress}
+.canais{display:flex; flex-direction:column; border:2px solid var(--fg)}
+.canais a{
+  display:flex; align-items:center; gap:15px; padding:17px 20px; text-decoration:none;
+  border-bottom:2px solid var(--fg); transition:background .18s, color .18s;
+}
+.canais a:last-child{border-bottom:0}
+.canais a:hover{background:var(--fg); color:var(--on-color)}
+.canais .k{font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; width:82px; flex:none; color:var(--tomate)}
+.canais a:hover .k{color:var(--ouro)}
+.canais .v{font-weight:600}
+.canais .seta{margin-left:auto; transition:transform .24s var(--ease)}
+.canais a:hover .seta{transform:translateX(6px)}
+@media (max-width:860px){ .ct{grid-template-columns:1fr} }
+
+footer{border-top:2px solid var(--fg); padding:30px 0 44px; font-family:var(--mono); font-size:12px; color:var(--fg-soft)}
+footer .wrap{display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between}
+footer a{color:var(--fg-soft)}
+
+/* ---------- aviso ---------- */
+#aviso{
+  position:fixed; left:50%; bottom:26px; transform:translate(-50%,140%);
+  background:var(--fg); color:var(--on-color); padding:14px 22px; z-index:90;
+  font-size:15px; max-width:calc(100vw - 32px); border:2px solid var(--ouro);
+  transition:transform .4s var(--ease);
+}
+#aviso.ver{transform:translate(-50%,0)}
+
+/* ---------- revelação por varredura ---------- */
+/* Entrada por animacao, nunca por estado escondido que dependa de JS.
+   Se a animacao nao rodar, o conteudo aparece normalmente - e impossivel
+   a pagina ficar em branco. */
+.js .rev{animation:surge .6s var(--ease) both; animation-delay:var(--atraso,0s)}
+@keyframes surge{ from{transform:translateY(16px)} to{transform:none} }
+
+
+#historia .rev:nth-of-type(1){--atraso:.05s} #historia .rev:nth-of-type(2){--atraso:.16s}
+#projetos .rev:nth-of-type(1){--atraso:.05s} #projetos .rev:nth-of-type(2){--atraso:.16s}
+#principios .rev:nth-of-type(1){--atraso:.05s} #principios .rev:nth-of-type(2){--atraso:.16s}
+#formacao .rev:nth-of-type(1){--atraso:.05s} #formacao .rev:nth-of-type(2){--atraso:.16s}
+#contato .rev:nth-of-type(1){--atraso:.05s} #contato .rev:nth-of-type(2){--atraso:.16s}
+
+
+/* ---------- certificados ---------- */
+#certificados{--ac:var(--verde)}
+.trilhas{display:flex; flex-direction:column; gap:2px; border:2px solid var(--fg); background:var(--fg)}
+.trilha{background:var(--bg2); padding:26px clamp(18px,3vw,32px)}
+.trilha-cab{display:flex; align-items:baseline; gap:14px}
+.trilha-cab h3{font-family:var(--display); font-size:clamp(19px,2.4vw,25px); letter-spacing:-.02em; margin:0}
+.trilha-n{font-family:var(--mono); font-size:12px; font-weight:700; color:var(--on-color); background:var(--tc,var(--verde)); padding:2px 9px; border-radius:2px}
+.trilha-sub{margin:6px 0 16px; color:var(--fg-soft); font-size:14.5px}
+.cert-lista{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px}
+.cert{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); border:1px solid var(--line); padding:11px 13px; border-radius:3px; background:var(--bg); transition:border-color .16s, transform .16s var(--ease)}
+.cert:hover,.cert:focus-visible{border-color:var(--ac); transform:translateX(3px)}
+.cert-t{flex:1; font-size:13.5px; line-height:1.35}
+.cert-seta{font-family:var(--mono); color:var(--ac); flex:none}
+@media (max-width:520px){ .cert-lista{grid-template-columns:1fr} }
+
+@media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important; transition:none!important}
+  .js .rev{animation:none}
+  .stroke::before{transform:scaleX(1)}
+  .faixa-in{animation:none}
 }
 </style>
 </head>
 <body>
 
-<div id="bg">
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-  <div class="blob blob3"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#capa"><span class="sq"></span>Nelson Neto</a>
+    <nav>
+      <a href="#historia">História</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#principios">Como trabalho</a>
+      <a href="#formacao">Formação</a>
+      <a href="#certificados">Certificados</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ CAPA ============================ -->
+<section id="capa">
+  <div class="wrap">
+    <p class="tagline"><span class="pulse"></span> Disponível para vaga júnior</p>
+    <h1 class="disp">
+      Eu escrevo o<br>
+      <span class="stroke on" style="--c:var(--tomate); --d:.15s">software</span> que<br>
+      o <span class="stroke on" style="--c:var(--azul); --d:.42s">comércio</span> da minha<br>
+      cidade <span class="stroke on" style="--c:var(--verde); --d:.69s">usa todo dia</span>.
+    </h1>
+    <p class="lede">
+      Sou o Nelson, desenvolvedor full-stack em Santa Maria, no Rio Grande do Sul.
+      Trabalho com <b>Node.js, Express, Prisma e PostgreSQL</b> no back-end, e com Flutter e
+      JavaScript no front. Estou procurando minha <b>primeira vaga como desenvolvedor júnior</b>.
+    </p>
+    <div class="acoes">
+      <a class="btn cheio" href="#projetos">Ver os projetos</a>
+      <a class="btn" href="https://github.com/mkbraion" target="_blank" rel="noopener">Ler o código no GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/nelson-neto-0498852b3/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="numeros">
+      <div><b data-conta="5">0</b><span>projetos publicados</span></div>
+      <div><b data-conta="2">0</b><span>apps em produção</span></div>
+      <div><b data-conta="100" data-suf="%">0</b><span>código aberto</span></div>
+      <div><b data-conta="0" data-txt="Zero">0</b><span>chave vazada em auditoria</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="faixa" aria-hidden="true">
+  <div class="faixa-in">
+    <span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Prisma</span><span>API REST</span><span>JWT</span><span>Flutter</span><span>Supabase</span><span>Git</span><span>JavaScript</span>
+    <span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Prisma</span><span>API REST</span><span>JWT</span><span>Flutter</span><span>Supabase</span><span>Git</span><span>JavaScript</span>
+  </div>
 </div>
-<div id="grid-overlay"></div>
-<div id="progress"></div>
 
-<nav id="nav">
-  <span class="logo">&lt;MK O Dev/&gt;</span>
-  <button id="menu-btn" aria-label="Menu">☰</button>
-  <div id="nav-links">
-    <a class="tab active" href="#inicio">Início</a>
-    <a class="tab" href="#formacao">Formação</a>
-    <a class="tab" href="#servicos">Serviços</a>
-    <a class="tab" href="#projetos">Projetos</a>
-    <a class="tab" href="#links">Links</a>
-    <a class="tab" href="#contato">Contato</a>
-  </div>
-</nav>
-
-<!-- ===================== INÍCIO ===================== -->
-<section id="inicio">
-  <span class="hero-badge"><span class="dot"></span> Disponível para novos projetos</span>
-  <h1>Transformo ideias em<br><span class="grad">software de verdade.</span></h1>
-  <div id="typed-wrap">&gt; <span id="typed"></span><span class="cursor-blink"></span></div>
-  <p class="hero-desc">
-    Desenvolvedor de software com foco em criar sites, aplicativos e soluções inteligentes.
-    Graduando em Engenharia de Software, com formação em Análise e Desenvolvimento de Sistemas
-    e estudos em Ciência de Dados e Inteligência Artificial.
-  </p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="#servicos">🚀 Ver serviços</a>
-    <a class="btn btn-ghost" href="https://wa.me/5555991117663?text=Ol%C3%A1%2C%20MK!%20Vi%20seu%20site%20e%20quero%20conversar%20sobre%20um%20projeto%20%F0%9F%9A%80" target="_blank" rel="noopener">💬 Falar comigo no WhatsApp</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><b>3</b><span>áreas de formação</span></div>
-    <div class="stat"><b>100%</b><span>dedicação em cada projeto</span></div>
-    <div class="stat"><b>∞</b><span>vontade de resolver problemas</span></div>
-  </div>
-  <div class="scroll-hint">↓ role para explorar — o fundo se transforma com você</div>
-</section>
-
-<!-- ===================== FORMAÇÃO ===================== -->
-<section id="formacao">
-  <div class="reveal">
-    <span class="section-tag">Formação</span>
-    <h2 class="section-title">Estudo sério, código sério.</h2>
-    <p class="section-sub">Minha base acadêmica em tecnologia — teoria e prática caminhando juntas.</p>
-  </div>
-  <div class="cards">
-    <div class="card reveal">
-      <div class="icon">🎓</div>
-      <h3>Engenharia de Software</h3>
-      <p>Graduação em andamento. Arquitetura de sistemas, boas práticas, qualidade de software e engenharia de requisitos.</p>
-      <span class="pill">Cursando</span>
+<!-- ============================ HISTÓRIA ============================ -->
+<section id="historia">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">01</span>
+      <div>
+        <h2>Não comecei pelo tutorial. Comecei pelo problema.</h2>
+      </div>
     </div>
-    <div class="card reveal">
-      <div class="icon">💻</div>
-      <h3>Análise e Desenvolvimento de Sistemas</h3>
-      <p>Desenvolvimento de sistemas completos: levantamento de requisitos, banco de dados, programação e entrega.</p>
-      <span class="pill">Formação</span>
-    </div>
-    <div class="card reveal">
-      <div class="icon">🤖</div>
-      <h3>Ciência de Dados & IA</h3>
-      <p>Análise de dados, machine learning e inteligência artificial aplicada a problemas reais de negócio.</p>
-      <span class="pill">Formação</span>
+    <div class="hist">
+      <div class="rev">
+        <p>
+          Antes de programar, eu trabalhava com vendas — e via de perto o tanto de tempo que se perde
+          com planilha bagunçada, visita anotada no papel e conta de lucro feita na calculadora do celular.
+          <strong>Eu não fui procurar um problema pra resolver: eu já vivia dentro dele.</strong>
+        </p>
+        <p>
+          O primeiro sistema que fiz foi pra mim mesmo. Depois virou coisa que outras pessoas usam de
+          verdade — uma equipe de corretores marca as visitas do dia numa agenda que eu escrevi, e um
+          revendedor controla estoque e fiado num aplicativo que eu publiquei.
+        </p>
+        <p>
+          É aí que o back-end deixou de ser matéria de faculdade e virou responsabilidade. Quando o
+          dado é de outra pessoa, você para de perguntar "funciona?" e passa a perguntar
+          <strong>"o que acontece se alguém tentar burlar isso?"</strong> — essa pergunta é a que mais
+          me ensinou até hoje, e é o tipo de dev que eu quero ser num time.
+        </p>
+      </div>
+      <div class="quadro rev">
+        <div class="t">Onde eu estou agora</div>
+        <ul>
+          <li><b>Procurando</b>Vaga de desenvolvedor júnior — back-end ou full-stack. Remoto, híbrido ou presencial.</li>
+          <li><b>Base</b>Santa Maria, Rio Grande do Sul.</li>
+          <li><b>Estudando</b>Testes automatizados com Jest e Supertest, TypeScript e Docker.</li>
+          <li><b>Formação</b>Graduando em Engenharia de Software.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== SERVIÇOS ===================== -->
-<section id="servicos">
-  <div class="reveal">
-    <span class="section-tag">Serviços</span>
-    <h2 class="section-title">O que eu posso construir pra você</h2>
-    <p class="section-sub">Do site simples ao sistema com inteligência artificial — me chama e a gente conversa sobre a sua ideia.</p>
-  </div>
-  <div class="cards">
-    <div class="card reveal">
-      <div class="icon">🌐</div>
-      <h3>Sites & Landing Pages</h3>
-      <p>Páginas modernas, rápidas e responsivas para divulgar seu negócio, serviço ou marca pessoal — como esta aqui.</p>
-    </div>
-    <div class="card reveal">
-      <div class="icon">📱</div>
-      <h3>Aplicativos</h3>
-      <p>Apps para Android e multiplataforma, do protótipo à publicação, com design limpo e foco na experiência do usuário.</p>
-    </div>
-    <div class="card reveal">
-      <div class="icon">⚙️</div>
-      <h3>Sistemas & Automações</h3>
-      <p>Sistemas sob medida e automação de tarefas repetitivas para o seu negócio ganhar tempo e reduzir erros.</p>
-    </div>
-    <div class="card reveal">
-      <div class="icon">🧠</div>
-      <h3>IA & Dados</h3>
-      <p>Soluções com inteligência artificial, chatbots e análise de dados para decisões mais inteligentes.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PROJETOS ===================== -->
+<!-- ============================ PROJETOS ============================ -->
 <section id="projetos">
-  <div class="reveal">
-    <span class="section-tag">Projetos</span>
-    <h2 class="section-title">Coisas que eu construí</h2>
-    <p class="section-sub">Projetos no ar, feitos pra usar de verdade. Clique pra abrir a demonstração.</p>
-  </div>
-  <div class="cards">
-    <a class="card card-featured reveal" href="https://drjefersonpires.com/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit">
-      <div class="icon">🩺</div>
-      <h3>Dr. Jeferson Pires · Cirurgião</h3>
-      <p>Site institucional de um cirurgião (geral, aparelho digestivo, trauma e robótica) em Santa Maria/RS. Design responsivo, agendamento por WhatsApp e no ar em domínio próprio.</p>
-      <span class="pill">Ao vivo</span><span class="pill pill-client">Cliente real</span>
-    </a>
-    <a class="card reveal" href="https://mkbraion.github.io/gerador-conteudo-ia/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
-      <div class="icon">✍️</div>
-      <h3>Gerador de Conteúdo com IA</h3>
-      <p>Cria legenda de Instagram, roteiro de Reels e anúncio com inteligência artificial — grátis e sem cadastro.</p>
-      <span class="pill">Ao vivo</span>
-    </a>
-    <a class="card reveal" href="https://mkbraion.github.io/sites-para-profissionais/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
-      <div class="icon">🌐</div>
-      <h3>Sites por Nicho</h3>
-      <p>Coleção de modelos de site prontos por área — advogado, clínica, barbearia e mais — fáceis de personalizar.</p>
-      <span class="pill">Ao vivo</span>
-    </a>
-    <a class="card reveal" href="https://mkbraion.github.io/crm-funil-vendas/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
-      <div class="icon">📊</div>
-      <h3>CRM · Funil de Vendas</h3>
-      <p>Funil de vendas em kanban que roda no navegador: cadastra leads, acompanha a conversão e salva local.</p>
-      <span class="pill">Ao vivo</span>
-    </a>
-    <a class="card reveal" href="https://mkbraion.github.io/bot-whatsapp-ia/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit">
-      <div class="icon">🤖</div>
-      <h3>Bot de WhatsApp com IA</h3>
-      <p>Atendente virtual que conversa e qualifica leads sozinho. Simulador funcional pra testar na hora.</p>
-      <span class="pill">Ao vivo</span>
-    </a>
-    <a class="card reveal" href="https://loja-checkout.onrender.com" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit">
-      <div class="icon">🔐</div>
-      <h3>Loja Virtual (full-stack)</h3>
-      <p>Loja com login seguro e checkout: senhas com bcrypt, JWT e preço validado no servidor. Node + Express + Prisma.</p>
-      <span class="pill">Ao vivo</span>
-    </a>
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">02</span>
+      <div>
+        <h2>Cinco projetos, cinco problemas de verdade.</h2>
+        <p>Todos com o código aberto pra você ler. Passe o mouse e clique — abre o repositório ou o app rodando.</p>
+      </div>
+    </div>
+    <div class="grade rev">
+
+      <a class="proj" style="--c:var(--tomate)" href="https://github.com/mkbraion/loja-checkout" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Full-stack</span><span class="p-num">01</span></div>
+        <h3>Loja com login e checkout</h3>
+        <p>O erro clássico de loja mal feita é confiar no preço que o navegador manda. Aqui o carrinho envia só o produto e a quantidade — o total é somado a partir do preço do banco. Senha em bcrypt, sessão por JWT, limite de tentativas no login, e o servidor se recusa a subir com segredo fraco.</p>
+        <div class="p-tec"><span>Node.js</span><span>Express</span><span>Prisma</span><span>JWT</span><span>bcrypt</span></div>
+        <span class="p-mais">Ler o código <span class="seta">&rarr;</span></span>
+      </a>
+
+      <a class="proj" style="--c:var(--azul)" href="https://github.com/mkbraion/crm-api" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Back-end</span><span class="p-num">02</span></div>
+        <h3>API do CRM</h3>
+        <p>API REST que dá contas e sincronização entre aparelhos ao CRM. Cada lead pertence a um usuário, e a rota confere o dono antes de responder — sem isso, trocar o número na URL entregaria o cliente do vizinho. Sete endpoints, autenticação por token e deploy descrito em arquivo.</p>
+        <div class="p-tec"><span>Node.js</span><span>Express</span><span>Prisma</span><span>PostgreSQL</span><span>JWT</span></div>
+        <span class="p-mais">Ler o código <span class="seta">&rarr;</span></span>
+      </a>
+
+      <a class="proj" style="--c:var(--verde)" href="https://mkbraion.github.io/crm-funil-vendas/" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">No ar</span><span class="p-num">03</span></div>
+        <h3>CRM · Funil de vendas</h3>
+        <p>Kanban de leads que abre e funciona, sem cadastro: os dados ficam no navegador. Quando a pessoa cria uma conta, passam a sincronizar na nuvem. Se o servidor cair ou a sessão expirar, o app volta sozinho pro modo local sem perder nada — degradar bem é parte do projeto.</p>
+        <div class="p-tec"><span>JavaScript</span><span>localStorage</span><span>API própria</span></div>
+        <span class="p-mais">Abrir o app <span class="seta">&rarr;</span></span>
+      </a>
+
+      <a class="proj" style="--c:var(--ouro)" href="https://mkbraion.github.io/lefon-agenda/" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Em produção</span><span class="p-num">04</span></div>
+        <h3>Lefon Agenda</h3>
+        <p>Agenda de visitas de uma equipe de corretores, em uso. Como o navegador fala direto com o banco, toda a autorização vive dentro do PostgreSQL — o JavaScript o usuário consegue alterar, o banco não. Escrevi um gatilho que impede alguém de mudar o próprio cargo e virar administrador.</p>
+        <div class="p-tec"><span>PostgreSQL</span><span>Supabase</span><span>RLS</span><span>JavaScript</span></div>
+        <span class="p-mais">Abrir o app <span class="seta">&rarr;</span></span>
+      </a>
+
+      <a class="proj" style="--c:var(--tomate)" href="https://mkbraion.github.io/lefon-lucro-web/" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Mobile · PWA</span><span class="p-num">05</span></div>
+        <h3>Lefon Lucro</h3>
+        <p>Gestão pra revendedor: lucro real por venda, estoque, fiado e caixa. Instala como aplicativo no celular. A vitrine pública mostra os produtos ao cliente sem entregar preço de custo nem fornecedor — resolvido com permissão por coluna no banco, e não escondendo o campo na tela, que seria contornável.</p>
+        <div class="p-tec"><span>Flutter</span><span>Dart</span><span>Supabase</span><span>PostgreSQL</span></div>
+        <span class="p-mais">Instalar o app <span class="seta">&rarr;</span></span>
+      </a>
+
+      <a class="proj" style="--c:var(--azul)" href="https://github.com/mkbraion" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Tudo</span><span class="p-num">+</span></div>
+        <h3>O resto está no GitHub</h3>
+        <p>Commit por commit, incluindo os erros e as correções. Se você é dev e quer avaliar o que eu realmente sei, é o lugar mais honesto pra olhar — melhor do que qualquer coisa escrita nesta página.</p>
+        <div class="p-tec"><span>github.com/mkbraion</span></div>
+        <span class="p-mais">Ver o perfil <span class="seta">&rarr;</span></span>
+      </a>
+
+    </div>
   </div>
 </section>
 
-<!-- ===================== LINKS ===================== -->
-<section id="links">
-  <div class="reveal">
-    <span class="section-tag">Links</span>
-    <h2 class="section-title">Onde me encontrar</h2>
-    <p class="section-sub">Meus projetos, redes e contatos — tudo num lugar só.</p>
-  </div>
-  <div class="links-list reveal">
-    <a class="link-item" href="https://www.instagram.com/dev_mkbraion/" target="_blank" rel="noopener">
-      <span class="li-icon">📸</span>
-      <span class="li-body"><b>Instagram</b><span>@dev_mkbraion</span></span>
-      <span class="arrow">→</span>
-    </a>
-    <a class="link-item" href="https://github.com/mkbraion" target="_blank" rel="noopener">
-      <span class="li-icon">🐙</span>
-      <span class="li-body"><b>GitHub</b><span>github.com/mkbraion</span></span>
-      <span class="arrow">→</span>
-    </a>
-    <a class="link-item" href="https://wa.me/5555991117663" target="_blank" rel="noopener">
-      <span class="li-icon">💬</span>
-      <span class="li-body"><b>WhatsApp</b><span>(55) 99111-7663</span></span>
-      <span class="arrow">→</span>
-    </a>
+<!-- ============================ PRINCÍPIOS ============================ -->
+<section id="principios">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">03</span>
+      <div>
+        <h2>Três coisas que eu levo a sério.</h2>
+        <p>Não é lista de qualidade pra entrevista. É o que aparece no código, e dá pra conferir.</p>
+      </div>
+    </div>
+    <div class="prin rev">
+      <article>
+        <h3>Regra fica no servidor</h3>
+        <p>Tudo que chega do navegador é sugestão, não verdade. Preço, permissão e dono do dado se decidem no servidor ou no banco. Foi assim que fechei a adulteração de preço na loja e a escalada de administrador na agenda.</p>
+      </article>
+      <article>
+        <h3>Falhar sem estragar</h3>
+        <p>Servidor fora do ar não pode virar tela branca. O CRM detecta a queda e volta pro modo local sem perder lead; a sessão expirada avisa e continua funcionando. Quem vai usar não tem que entender o que quebrou.</p>
+      </article>
+      <article>
+        <h3>Escrever pra quem vem depois</h3>
+        <p>Meus <code>README</code> explicam a decisão, não só o comando de instalar. Comentário no código diz <em>por quê</em>, nunca <em>o quê</em>. Um dia esse "alguém depois" vai ser um colega de time — ou eu mesmo, seis meses na frente.</p>
+      </article>
+    </div>
   </div>
 </section>
 
-<!-- ===================== CONTATO ===================== -->
+<!-- ============================ FORMAÇÃO ============================ -->
+<section id="formacao">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">04</span>
+      <div>
+        <h2>Formação e o que estou estudando.</h2>
+      </div>
+    </div>
+    <ul class="form-lista rev">
+      <li>
+        <span class="q">Em andamento</span>
+        <div><h3>Engenharia de Software</h3><p>Graduação em curso. É de onde vem a base de estrutura de dados, arquitetura e banco relacional.</p></div>
+      </li>
+      <li>
+        <span class="q">Concluído</span>
+        <div><h3>Análise e Desenvolvimento de Sistemas</h3><p>Formação técnica em desenvolvimento, modelagem e processo de software.</p></div>
+      </li>
+      <li>
+        <span class="q">Certificações</span>
+        <div><h3>Certificações</h3><p>Banco de Dados no Instituto Federal / Aprenda Mais, e <a href="#certificados">36 certificados da DIO</a> em Python, IA, Node.js e dados.</p></div>
+      </li>
+      <li>
+        <span class="q">Estudando agora</span>
+        <div><h3>Testes, TypeScript e Docker</h3><p>Jest e Supertest pra provar as regras que eu escrevi, TypeScript pra pegar erro antes de rodar, e Docker pra qualquer pessoa subir meus projetos com um comando.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ============================ CERTIFICADOS ============================ -->
+<section id="certificados">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">05</span>
+      <div>
+        <h2>36 certificados, e a conta segue subindo.</h2>
+        <p>Formação contínua na DIO — cada um leva à página pública de verificação. Agrupei por trilha pra mostrar onde eu fui a fundo.</p>
+      </div>
+    </div>
+    <div class="trilhas">
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Python</h3>
+        <span class="trilha-n" style="--tc:var(--verde)">14</span>
+      </div>
+      <p class="trilha-sub">A trilha completa, do primeiro passo aos arquivos e coleções.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/IR7OPAGX/share" target="_blank" rel="noopener"><span class="cert-t">Ambiente de Desenvolvimento e Primeiros Passos com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VDB3D2DJ/share" target="_blank" rel="noopener"><span class="cert-t">Conhecendo a Linguagem de Programação Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CBGHWLSU/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Python: Primeiros Passos e Fundamentos</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VSDOBKKU/share" target="_blank" rel="noopener"><span class="cert-t">Tipos de Operadores com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/NPUOGXMA/share" target="_blank" rel="noopener"><span class="cert-t">Estruturas Condicionais e de Repetição em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/BBBZIMTT/share" target="_blank" rel="noopener"><span class="cert-t">Manipulando Strings com Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/AG9NPSS2/share" target="_blank" rel="noopener"><span class="cert-t">Desafios de Código: Aperfeiçoe Sua Lógica e Pensamento Computacional</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/MUTPEZML/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Listas em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/PAHEFXJT/share" target="_blank" rel="noopener"><span class="cert-t">Conhecendo Tuplas em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/BESAJZOM/share" target="_blank" rel="noopener"><span class="cert-t">Explorando Conjuntos em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/AJ54URKU/share" target="_blank" rel="noopener"><span class="cert-t">Aprendendo a Utilizar Dicionários em Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/NKCFUZGL/share" target="_blank" rel="noopener"><span class="cert-t">Dominando Funções Python</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/4YLO4NNR/share" target="_blank" rel="noopener"><span class="cert-t">Estruturas em Python: Dados, Coleções e Funções</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/1XE6RMOO/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Arquivos e Dados Externos em Python</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Inteligência Artificial &amp; LLMs</h3>
+        <span class="trilha-n" style="--tc:var(--tomate)">7</span>
+      </div>
+      <p class="trilha-sub">Modelos de linguagem, IA generativa e engenharia de prompt.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/QA6GPMT1/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos da IA Moderna: Machine Learning, LLMs, IA Generativa e Agentes</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/RXCA2P0A/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos de Modelos de Linguagem de Grande Escala</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/JGVJKOKM/share" target="_blank" rel="noopener"><span class="cert-t">IA Generativa: Fundamentos, Prompting e Aplicações</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/KTNZJNW8/share" target="_blank" rel="noopener"><span class="cert-t">Introdução à Engenharia de Prompts</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/IPUHAHOT/share" target="_blank" rel="noopener"><span class="cert-t">Técnicas de Engenharia de Prompt</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/FHPO92KR/share" target="_blank" rel="noopener"><span class="cert-t">Treinando uma IA de Aprendizagem: Explore o Poder do NotebookLM</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/XGQJ3YQH/share" target="_blank" rel="noopener"><span class="cert-t">Trabalhando com Microsoft Copilot</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Node.js &amp; Back-end</h3>
+        <span class="trilha-n" style="--tc:var(--azul)">4</span>
+      </div>
+      <p class="trilha-sub">Fundamentos do ambiente onde eu construo minhas APIs.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/F2ZQIRZQ/share" target="_blank" rel="noopener"><span class="cert-t">Bem-Vindo ao Mundo do Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/H1RXUNXL/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/UVNWDLK8/share" target="_blank" rel="noopener"><span class="cert-t">Instalando Ambiente de Desenvolvimento Node.js</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/70M22JWA/share" target="_blank" rel="noopener"><span class="cert-t">Inicializando Projetos Node.js</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Dados, SQL &amp; BI</h3>
+        <span class="trilha-n" style="--tc:var(--ouro)">5</span>
+      </div>
+      <p class="trilha-sub">Banco relacional, ETL e análise — a base dos projetos.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/SMRZ8Q9R/share" target="_blank" rel="noopener"><span class="cert-t">Introdução a Banco de Dados Relacionais</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/5OTRG5BP/share" target="_blank" rel="noopener"><span class="cert-t">Fundamentos de Dados: Excel, SQL e Business Intelligence</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/B3NLUCBG/share" target="_blank" rel="noopener"><span class="cert-t">Criando um Processo de ETL com Excel e Power Query</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/Q2IWBL9G/share" target="_blank" rel="noopener"><span class="cert-t">Utilizando Microsoft Copilot para escrever consultas SQL</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/VB6MXFYR/share" target="_blank" rel="noopener"><span class="cert-t">Introdução ao Excel 365</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="trilha rev">
+      <div class="trilha-cab">
+        <h3>Bootcamps &amp; Carreira</h3>
+        <span class="trilha-n" style="--tc:var(--azul)">6</span>
+      </div>
+      <p class="trilha-sub">Programas de Itaú, Bradesco e Riachuelo com foco em IA.</p>
+      <div class="cert-lista">
+<a class="cert" href="https://www.dio.me/certificate/KUDBNCX0/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Itaú - Java com Inteligência Artificial</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CUG3ATK5/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Bradesco - GenAI, Dados &amp; Cyber</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/O3P7VM6T/share" target="_blank" rel="noopener"><span class="cert-t">Boas vindas ao Bootcamp Riachuelo - Criando produtos com IA</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/CW99P5TU/share" target="_blank" rel="noopener"><span class="cert-t">Extraindo Insights do Feedback de Clientes Bancários</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/WNEA92WT/share" target="_blank" rel="noopener"><span class="cert-t">Desafios de Projetos: Crie Um Portfólio Vencedor</span><span class="cert-seta">&rarr;</span></a>
+<a class="cert" href="https://www.dio.me/certificate/LRQPPGGC/share" target="_blank" rel="noopener"><span class="cert-t">Extraindo Insights do Feedback de Clientes Bancários (parte 2)</span><span class="cert-seta">&rarr;</span></a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTATO ============================ -->
 <section id="contato">
-  <div class="reveal">
-    <span class="section-tag">Contato</span>
-    <h2 class="section-title">Vamos trabalhar juntos?</h2>
-    <p class="section-sub">Deixe seu email e WhatsApp que eu entro em contato com você — ou me chame direto no WhatsApp.</p>
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="carimbo">06</span>
+      <div>
+        <h2>Vamos conversar?</h2>
+        <p>Recrutador, gestor de time ou dev — deixe seu contato que eu retorno. Se preferir, os canais diretos estão ao lado.</p>
+      </div>
+    </div>
+    <div class="ct">
+      <form id="contact-form" class="rev" novalidate>
+        <input type="text" id="ct-nome" name="nome" placeholder="Seu nome" autocomplete="name" required />
+        <div class="dupla">
+          <input type="email" id="ct-email" name="email" placeholder="Seu e-mail" autocomplete="email" required />
+          <input type="tel" id="ct-zap" name="whatsapp" placeholder="WhatsApp (com DDD)" autocomplete="tel" />
+        </div>
+        <textarea id="ct-msg" name="mensagem" placeholder="Sobre qual vaga ou projeto você quer falar? (opcional)"></textarea>
+        <button class="btn cheio" id="btn-send" type="submit">Enviar contato</button>
+      </form>
+      <div class="canais rev">
+        <a href="https://www.linkedin.com/in/nelson-neto-0498852b3/" target="_blank" rel="noopener">
+          <span class="k">LinkedIn</span><span class="v">Nelson Neto</span><span class="seta">&rarr;</span></a>
+        <a href="https://github.com/mkbraion" target="_blank" rel="noopener">
+          <span class="k">GitHub</span><span class="v">github.com/mkbraion</span><span class="seta">&rarr;</span></a>
+        <a href="mailto:mkbraion@gmail.com">
+          <span class="k">E-mail</span><span class="v">mkbraion@gmail.com</span><span class="seta">&rarr;</span></a>
+        <a href="https://wa.me/5555991117663" target="_blank" rel="noopener">
+          <span class="k">WhatsApp</span><span class="v">(55) 99111-7663</span><span class="seta">&rarr;</span></a>
+      </div>
+    </div>
   </div>
-  <form class="contact-form reveal" id="contact-form">
-    <input type="text" id="ct-nome" placeholder="Seu nome" required>
-    <div class="form-row">
-      <input type="email" id="ct-email" placeholder="Seu email" required>
-      <input type="tel" id="ct-zap" placeholder="Seu WhatsApp (com DDD)" required>
-    </div>
-    <textarea id="ct-msg" placeholder="Conte um pouco sobre o que você precisa (opcional)"></textarea>
-    <div class="contact-actions">
-      <button class="btn btn-primary" type="submit" id="btn-send">📨 Enviar contato</button>
-      <button class="btn btn-ghost" type="button" id="btn-zap-direct">💬 Chamar no WhatsApp</button>
-    </div>
-    <p class="form-note">Seus dados chegam direto pra mim — sem spam, prometo. 🤝</p>
-  </form>
 </section>
+
+</main>
 
 <footer>
-  <p>© <span id="year"></span> MK O Dev — feito com muito código e café ☕</p>
+  <div class="wrap">
+    <span>Nelson Neto — Santa Maria, RS</span>
+    <span>Feito à mão, sem construtor de site. <a href="privacidade.html">Privacidade</a></span>
+  </div>
 </footer>
 
-<div id="toast"></div>
+<div id="aviso" role="status" aria-live="polite"></div>
 
 <script>
-/* =============================================================
-   FUNDO QUE SE CONTORCE COM O SCROLL
-   ============================================================= */
-const blobs=[...document.querySelectorAll('.blob')];
-const bg=document.getElementById('bg');
-const progress=document.getElementById('progress');
-let ticking=false;
-function onScroll(){
-  if(ticking)return;ticking=true;
-  requestAnimationFrame(()=>{
-    const max=document.documentElement.scrollHeight-innerHeight;
-    const p=max>0?scrollY/max:0;           // 0 → 1 progresso da página
-    progress.style.width=(p*100)+'%';
-    // as bolhas giram, escalam e mudam de forma conforme o scroll
-    const r1=50-p*32, r2=50+Math.sin(p*Math.PI*2)*28, r3=50-Math.cos(p*Math.PI*2)*24;
-    blobs[0].style.transform=`translate(${p*22}vw, ${p*55}vh) rotate(${p*200}deg) scale(${1+p*.5})`;
-    blobs[0].style.borderRadius=`${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r1}% ${100-r1}% ${100-r3}%`;
-    blobs[1].style.transform=`translate(${-p*30}vw, ${p*30}vh) rotate(${-p*160}deg) scale(${1+Math.sin(p*Math.PI)*.6})`;
-    blobs[1].style.borderRadius=`${r2}% ${r3}% ${100-r2}% ${r1}% / ${100-r1}% ${r2}% ${r3}% ${100-r3}%`;
-    blobs[2].style.transform=`translate(${Math.sin(p*Math.PI*2)*14}vw, ${-p*60}vh) rotate(${p*260}deg) scale(${1+p*.35})`;
-    blobs[2].style.borderRadius=`${100-r3}% ${r1}% ${r3}% ${100-r2}% / ${r2}% ${100-r1}% ${r1}% ${r3}%`;
-    // o tom das cores gira conforme desce (em passos de 3° pra poupar GPU)
-    const hue=Math.round(p*90/3)*3;
-    if(bg._hue!==hue){bg._hue=hue;bg.style.filter=`hue-rotate(${hue}deg)`}
-    document.getElementById('nav').classList.toggle('scrolled',scrollY>40);
-    highlightTab();
-    ticking=false;
-  });
-}
-addEventListener('scroll',onScroll,{passive:true});
-onScroll();
+(function(){
+  "use strict";
+  var calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* holofote seguindo o mouse nos cards */
-addEventListener('pointermove',e=>{
-  document.querySelectorAll('.card').forEach(c=>{
-    const r=c.getBoundingClientRect();
-    c.style.setProperty('--mx',(e.clientX-r.left)+'px');
-    c.style.setProperty('--my',(e.clientY-r.top)+'px');
-  });
-},{passive:true});
-
-/* =============================================================
-   NAVEGAÇÃO — aba ativa + menu mobile
-   ============================================================= */
-const tabs=[...document.querySelectorAll('nav a.tab')];
-const sections=tabs.map(t=>document.querySelector(t.getAttribute('href')));
-function highlightTab(){
-  let idx=0;
-  sections.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.45)idx=i});
-  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
-}
-const menuBtn=document.getElementById('menu-btn');
-const navLinks=document.getElementById('nav-links');
-menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
-tabs.forEach(t=>t.addEventListener('click',()=>{
-  tabs.forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');
-  navLinks.classList.remove('open');
-}));
-
-/* efeito de clique (ripple) em botões, abas, links e zonas de upload */
-document.addEventListener('click',e=>{
-  const el=e.target.closest('.btn,nav a.tab,.link-item');
-  if(!el)return;
-  const r=el.getBoundingClientRect();
-  const size=Math.max(r.width,r.height);
-  const rip=document.createElement('span');
-  rip.className='ripple';
-  rip.style.width=rip.style.height=size+'px';
-  rip.style.left=(e.clientX-r.left-size/2)+'px';
-  rip.style.top=(e.clientY-r.top-size/2)+'px';
-  el.appendChild(rip);
-  setTimeout(()=>rip.remove(),700);
-});
-
-/* =============================================================
-   ANIMAÇÃO DE ENTRADA (reveal)
-   ============================================================= */
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
-}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* =============================================================
-   EFEITO DE DIGITAÇÃO
-   ============================================================= */
-const frases=[
-  'Desenvolvedor de Software',
-  'Engenharia de Software 🎓',
-  'Análise e Desenvolvimento de Sistemas',
-  'Ciência de Dados & Inteligência Artificial',
-  'Sites • Apps • Automações • IA'
-];
-const typedEl=document.getElementById('typed');
-let fi=0,ci=0,apagando=false;
-(function digitar(){
-  const f=frases[fi];
-  typedEl.textContent=f.slice(0,ci);
-  if(!apagando&&ci<f.length){ci++;setTimeout(digitar,55)}
-  else if(!apagando){apagando=true;setTimeout(digitar,1800)}
-  else if(ci>0){ci--;setTimeout(digitar,26)}
-  else{apagando=false;fi=(fi+1)%frases.length;setTimeout(digitar,350)}
-})();
-
-/* =============================================================
-   AVISOS (toast)
-   ============================================================= */
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3200);
-}
-
-/* =============================================================
-   CONTATO — envia os dados do visitante pro meu email / WhatsApp
-   ============================================================= */
-const WHATS_NUM='5555991117663';
-const EMAIL_DESTINO='mkbraion@gmail.com';
-function dadosContato(){
-  return{
-    nome:document.getElementById('ct-nome').value.trim(),
-    email:document.getElementById('ct-email').value.trim(),
-    zap:document.getElementById('ct-zap').value.trim(),
-    msg:document.getElementById('ct-msg').value.trim()
-  };
-}
-document.getElementById('contact-form').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const d=dadosContato();
-  const btn=document.getElementById('btn-send');
-  btn.disabled=true;btn.textContent='⏳ Enviando...';
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/'+EMAIL_DESTINO,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({
-        _subject:'📩 Novo contato pelo site MK O Dev',
-        _template:'table',_captcha:'false',
-        Nome:d.nome,Email:d.email,WhatsApp:d.zap,
-        Mensagem:d.msg||'(sem mensagem)'
-      })
+  /* ---- contadores ----
+     Rodam no carregamento. O setTimeout crava o valor final caso a
+     animacao por quadro nao chegue a rodar. */
+  [].slice.call(document.querySelectorAll("[data-conta]")).forEach(function(el){
+    var alvo = +el.dataset.conta, suf = el.dataset.suf || "", txt = el.dataset.txt;
+    if (txt){ el.textContent = txt; return; }
+    if (calmo){ el.textContent = alvo + suf; return; }
+    var ini = null, dur = 1100, pronto = false;
+    setTimeout(function(){ if (!pronto) el.textContent = alvo + suf; }, dur + 400);
+    requestAnimationFrame(function passo(t){
+      if (ini === null) ini = t;
+      var q = Math.min((t - ini) / dur, 1);
+      el.textContent = Math.round(alvo * (1 - Math.pow(1 - q, 3))) + suf;
+      if (q < 1) requestAnimationFrame(passo); else pronto = true;
     });
-    if(!r.ok)throw new Error();
-    toast('✅ Recebi seu contato, '+d.nome.split(' ')[0]+'! Retorno em breve.');
-    e.target.reset();
-  }catch{
-    toast('⚠️ Não deu pra enviar agora — tenta o botão do WhatsApp!');
-  }
-  btn.disabled=false;btn.textContent='📨 Enviar contato';
-});
-document.getElementById('btn-zap-direct').addEventListener('click',()=>{
-  const d=dadosContato();
-  let texto='Olá, MK! 👋 Vim pelo seu site.';
-  if(d.nome)texto+='\nMeu nome: '+d.nome;
-  if(d.email)texto+='\nMeu email: '+d.email;
-  if(d.zap)texto+='\nMeu WhatsApp: '+d.zap;
-  if(d.msg)texto+='\n'+d.msg;
-  open('https://wa.me/'+WHATS_NUM+'?text='+encodeURIComponent(texto),'_blank','noopener');
-});
+  });
 
-document.getElementById('year').textContent=new Date().getFullYear();
+  /* ---- aviso ---- */
+  var av = document.getElementById("aviso"), avT;
+  function aviso(msg){
+    av.textContent = msg; av.classList.add("ver");
+    clearTimeout(avT); avT = setTimeout(function(){ av.classList.remove("ver"); }, 5200);
+  }
+
+  /* ---- formulário de contato ---- */
+  var DESTINO = "mkbraion@gmail.com";
+  var f = document.getElementById("contact-form");
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    var nome  = document.getElementById("ct-nome").value.trim();
+    var email = document.getElementById("ct-email").value.trim();
+    var zap   = document.getElementById("ct-zap").value.trim();
+    var msg   = document.getElementById("ct-msg").value.trim();
+
+    if (!nome){ aviso("Faltou seu nome."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ aviso("Confere o e-mail — parece que falta alguma coisa."); return; }
+
+    var btn = document.getElementById("btn-send");
+    btn.disabled = true; btn.textContent = "Enviando...";
+    fetch("https://formsubmit.co/ajax/" + DESTINO, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        _subject: "Contato pelo portfolio — " + nome,
+        _template: "table", _captcha: "false",
+        Nome: nome, Email: email,
+        WhatsApp: zap || "(nao informado)",
+        Mensagem: msg || "(sem mensagem)"
+      })
+    }).then(function(r){
+      if (!r.ok) throw new Error("falhou");
+      aviso("Recebido, " + nome.split(" ")[0] + ". Eu retorno em breve.");
+      f.reset();
+    }).catch(function(){
+      aviso("Não consegui enviar agora. Me chama no WhatsApp ou no e-mail aqui do lado.");
+    }).then(function(){
+      btn.disabled = false; btn.textContent = "Enviar contato";
+    });
+  });
+})();
 </script>
 </body>
 </html>
