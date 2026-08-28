@@ -379,14 +379,22 @@ footer a{color:var(--fg-soft)}
     <div class="cab rev">
       <span class="carimbo">02</span>
       <div>
-        <h2>Cinco projetos, cinco problemas de verdade.</h2>
-        <p>Todos com o código aberto pra você ler. Passe o mouse e clique — abre o repositório ou o app rodando.</p>
+        <h2>Seis projetos, seis problemas de verdade.</h2>
+        <p>Do site de um cliente no ar ao código aberto de cada um. Passe o mouse e clique — abre o site, o repositório ou o app rodando.</p>
       </div>
     </div>
     <div class="grade rev">
 
+      <a class="proj" style="--c:var(--ouro)" href="https://drjefersonpires.com/" target="_blank" rel="noopener">
+        <div class="p-top"><span class="p-sel">Cliente · No ar</span><span class="p-num">01</span></div>
+        <h3>Site do Dr. Jeferson Pires</h3>
+        <p>Site de um cirurgião em Santa Maria, no ar em domínio próprio. Cliente real: layout responsivo, seções de especialidades e cirurgia robótica, e agendamento que cai direto no WhatsApp do consultório. Feito pra carregar rápido e passar confiança já na primeira dobra.</p>
+        <div class="p-tec"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsivo</span><span>Hostinger</span></div>
+        <span class="p-mais">Abrir o site <span class="seta">&rarr;</span></span>
+      </a>
+
       <a class="proj" style="--c:var(--tomate)" href="https://github.com/mkbraion/loja-checkout" target="_blank" rel="noopener">
-        <div class="p-top"><span class="p-sel">Full-stack</span><span class="p-num">01</span></div>
+        <div class="p-top"><span class="p-sel">Full-stack</span><span class="p-num">02</span></div>
         <h3>Loja com login e checkout</h3>
         <p>O erro clássico de loja mal feita é confiar no preço que o navegador manda. Aqui o carrinho envia só o produto e a quantidade — o total é somado a partir do preço do banco. Senha em bcrypt, sessão por JWT, limite de tentativas no login, e o servidor se recusa a subir com segredo fraco.</p>
         <div class="p-tec"><span>Node.js</span><span>Express</span><span>Prisma</span><span>JWT</span><span>bcrypt</span></div>
@@ -394,7 +402,7 @@ footer a{color:var(--fg-soft)}
       </a>
 
       <a class="proj" style="--c:var(--azul)" href="https://github.com/mkbraion/crm-api" target="_blank" rel="noopener">
-        <div class="p-top"><span class="p-sel">Back-end</span><span class="p-num">02</span></div>
+        <div class="p-top"><span class="p-sel">Back-end</span><span class="p-num">03</span></div>
         <h3>API do CRM</h3>
         <p>API REST que dá contas e sincronização entre aparelhos ao CRM. Cada lead pertence a um usuário, e a rota confere o dono antes de responder — sem isso, trocar o número na URL entregaria o cliente do vizinho. Sete endpoints, autenticação por token e deploy descrito em arquivo.</p>
         <div class="p-tec"><span>Node.js</span><span>Express</span><span>Prisma</span><span>PostgreSQL</span><span>JWT</span></div>
@@ -402,7 +410,7 @@ footer a{color:var(--fg-soft)}
       </a>
 
       <a class="proj" style="--c:var(--verde)" href="https://mkbraion.github.io/crm-funil-vendas/" target="_blank" rel="noopener">
-        <div class="p-top"><span class="p-sel">No ar</span><span class="p-num">03</span></div>
+        <div class="p-top"><span class="p-sel">No ar</span><span class="p-num">04</span></div>
         <h3>CRM · Funil de vendas</h3>
         <p>Kanban de leads que abre e funciona, sem cadastro: os dados ficam no navegador. Quando a pessoa cria uma conta, passam a sincronizar na nuvem. Se o servidor cair ou a sessão expirar, o app volta sozinho pro modo local sem perder nada — degradar bem é parte do projeto.</p>
         <div class="p-tec"><span>JavaScript</span><span>localStorage</span><span>API própria</span></div>
@@ -410,7 +418,7 @@ footer a{color:var(--fg-soft)}
       </a>
 
       <a class="proj" style="--c:var(--ouro)" href="https://mkbraion.github.io/lefon-agenda/" target="_blank" rel="noopener">
-        <div class="p-top"><span class="p-sel">Em produção</span><span class="p-num">04</span></div>
+        <div class="p-top"><span class="p-sel">Em produção</span><span class="p-num">05</span></div>
         <h3>Lefon Agenda</h3>
         <p>Agenda de visitas de uma equipe de corretores, em uso. Como o navegador fala direto com o banco, toda a autorização vive dentro do PostgreSQL — o JavaScript o usuário consegue alterar, o banco não. Escrevi um gatilho que impede alguém de mudar o próprio cargo e virar administrador.</p>
         <div class="p-tec"><span>PostgreSQL</span><span>Supabase</span><span>RLS</span><span>JavaScript</span></div>
@@ -418,7 +426,7 @@ footer a{color:var(--fg-soft)}
       </a>
 
       <a class="proj" style="--c:var(--tomate)" href="https://mkbraion.github.io/lefon-lucro-web/" target="_blank" rel="noopener">
-        <div class="p-top"><span class="p-sel">Mobile · PWA</span><span class="p-num">05</span></div>
+        <div class="p-top"><span class="p-sel">Mobile · PWA</span><span class="p-num">06</span></div>
         <h3>Lefon Lucro</h3>
         <p>Gestão pra revendedor: lucro real por venda, estoque, fiado e caixa. Instala como aplicativo no celular. A vitrine pública mostra os produtos ao cliente sem entregar preço de custo nem fornecedor — resolvido com permissão por coluna no banco, e não escondendo o campo na tela, que seria contornável.</p>
         <div class="p-tec"><span>Flutter</span><span>Dart</span><span>Supabase</span><span>PostgreSQL</span></div>
