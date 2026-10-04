@@ -9,11 +9,11 @@
 
 </div>
 
-Portfólio pessoal para apresentar meus serviços de desenvolvimento: sites, aplicativos, automações e soluções com IA.
+Portfólio pessoal para apresentar meus estudos e projetos em desenvolvimento web, back-end, aplicativos, bancos de dados e integrações.
 
 ## ✨ Destaques
 
-- 🌀 **Fundo vivo** — formas de luz que se contorcem e mudam de cor conforme o scroll
+- 🎨 **Identidade visual** — interface escura usando a paleta Black, Obsidian, Maroon, Crimson e Deep Crimson
 - 🧭 **Navegação por abas** com rolagem suave e aba ativa automática
 - 🎓 **Certificados** com visualização em tela cheia
 - 📨 **Formulário de contato** integrado (recebo os dados por email) + atalho direto pro WhatsApp
