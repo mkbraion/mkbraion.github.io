@@ -29,3 +29,7 @@ O workflow publica os arquivos do site após um push na branch `main` ou execuç
 ## Projetos apresentados
 
 Os links de demonstração e de código estão na seção de projetos. A disponibilidade do código-fonte e a licença devem ser verificadas em cada repositório; alguns projetos têm apenas o build público.
+
+## Aplicativos no navegador
+
+As versões web simples e os links das aplicações estão em [Aplicativos](https://mkbraion.github.io/apps/). As ferramentas locais salvam os dados somente no navegador e oferecem exportação quando indicada.
