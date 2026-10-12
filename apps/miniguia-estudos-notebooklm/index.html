@@ -1,0 +1,518 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Miniguia de estudos — aplicativos simples de Nelson Neto"><title>Miniguia de estudos</title><link rel="stylesheet" href="../style.css"></head><body><header><a href="../index.html">NN / Aplicativos</a><a href="https://mkbraion.github.io/">Portfólio ↗</a></header><main><span class="eyebrow">Biblioteca de estudo</span><h1>Miniguia de estudos</h1><p>Material do repositório, disponível para leitura no navegador.</p><details class="panel" style="margin:12px 0"><summary>fontes\curadoria-de-fontes.md</summary><pre># 📚 Curadoria de Fontes
+
+Detalhamento das fontes abertas selecionadas e enviadas ao **NotebookLM**.
+Critérios de seleção: **(1)** credibilidade institucional, **(2)** linguagem introdutória,
+**(3)** gratuidade/acesso aberto, **(4)** cobertura do tema (juros + educação financeira).
+
+---
+
+## Fonte 1 — Banco Central do Brasil (BCB)
+- **Documento:** Caderno de Educação Financeira – Gestão de Finanças Pessoais.
+- **Tipo:** PDF.
+- **Portal:** https://www.bcb.gov.br/cidadaniafinanceira
+- **Por que escolhi:** material oficial do regulador, escrito para o público leigo.
+- **Trechos-chave que usei:** orçamento pessoal, diferença entre poupar e investir,
+  o perigo do endividamento e dos juros do rotativo do cartão.
+- **Confiabilidade:** 🟢 Altíssima (fonte primária/oficial).
+
+## Fonte 2 — CVM / Portal do Investidor
+- **Documento:** Cadernos CVM e conteúdos do Portal do Investidor.
+- **Tipo:** Texto/PDF.
+- **Portal:** https://www.investidor.gov.br
+- **Por que escolhi:** aprofunda juros, renda fixa e a relação **risco × retorno**.
+- **Trechos-chave que usei:** conceito de rentabilidade, liquidez e o papel dos indexadores.
+- **Confiabilidade:** 🟢 Altíssima (autarquia reguladora do mercado de capitais).
+
+## Fonte 3 — Vida e Dinheiro (ENEF)
+- **Documento:** Cartilhas e artigos da Estratégia Nacional de Educação Financeira.
+- **Tipo:** Texto/PDF.
+- **Portal:** https://www.vidaedinheiro.gov.br
+- **Por que escolhi:** exemplos do cotidiano, ideal para consolidar a base.
+- **Trechos-chave que usei:** planejamento, metas financeiras e reserva de emergência.
+- **Confiabilidade:** 🟢 Alta (iniciativa governamental multi-institucional).
+
+## Fonte 4 — Wikipédia: &quot;Juros compostos&quot;
+- **Documento:** Verbete enciclopédico.
+- **Tipo:** Texto.
+- **Link:** https://pt.wikipedia.org/wiki/Juros_compostos
+- **Por que escolhi:** traz a **fórmula matemática** clara e a comparação direta com juros simples.
+- **Trechos-chave que usei:** dedução da fórmula `M = C(1+i)ⁿ` e exemplos numéricos.
+- **Confiabilidade:** 🟡 Média (fonte aberta/colaborativa — usada para a **matemática**,
+  que é verificável, e **cruzada** com as fontes oficiais para os conceitos).
+
+---
+
+## 🔁 Cruzamento de fontes (pensamento crítico)
+Sempre que possível, cada conceito foi **confirmado em ao menos duas fontes**.
+A parte matemática veio da Wikipédia (verificável); a parte de **comportamento financeiro**
+e definições oficiais veio de BCB, CVM e ENEF. Divergências de linguagem foram resolvidas
+priorizando a **fonte oficial**.
+
+&gt; ⚠️ Transparência: os links levam aos **portais oficiais estáveis**. Os PDFs específicos
+&gt; foram acessados a partir deles e enviados ao NotebookLM. Deep-links diretos foram evitados
+&gt; por costumarem quebrar com o tempo.
+</pre></details><details class="panel" style="margin:12px 0"><summary>guia\glossario.md</summary><pre># 📘 Glossário — Educação Financeira Básica
+
+Vocabulário mínimo para não travar em textos financeiros. Ordenado por afinidade de tema.
+
+---
+
+## Fundamentos de juros
+- **Capital (principal):** valor inicial aplicado ou tomado emprestado.
+- **Montante:** capital + juros ao final do período (`M`).
+- **Taxa de juros (`i`):** preço do dinheiro no tempo, em % por período.
+- **Período (`n`):** quantidade de vezes que o juro é aplicado.
+- **Capitalização:** momento em que o juro é incorporado ao saldo (mensal, anual…).
+- **Juros simples:** incidem só sobre o capital inicial (crescimento linear).
+- **Juros compostos:** incidem sobre capital + juros acumulados (crescimento exponencial).
+- **Regra dos 72:** `72 ÷ taxa(%)` ≈ tempo para **dobrar** o dinheiro.
+
+## Taxas
+- **Taxa nominal:** valor &quot;de fachada&quot;, sem descontar inflação nem ajustar capitalização.
+- **Taxa efetiva:** taxa que de fato incide, considerando a capitalização.
+- **Juros reais:** rendimento **após** descontar a inflação (`real ≈ nominal − inflação`).
+
+## Inflação e indexadores (Brasil)
+- **Inflação:** aumento geral de preços; corrói o poder de compra.
+- **IPCA:** índice oficial de inflação ao consumidor (IBGE).
+- **Selic:** taxa básica de juros da economia (definida pelo Copom/Banco Central).
+- **CDI:** referência dos empréstimos entre bancos; base da renda fixa; anda junto da Selic.
+- **Poder de compra:** quanto de bens/serviços seu dinheiro consegue adquirir.
+
+## Comportamento e planejamento
+- **Aporte:** cada novo depósito feito no investimento.
+- **Orçamento:** plano de entradas e saídas de dinheiro.
+- **Método 50/30/20:** 50% necessidades · 30% desejos · 20% poupança/dívidas.
+- **Fluxo de caixa:** movimento de dinheiro que entra e sai num período.
+- **Reserva de emergência:** dinheiro líquido para imprevistos (3–6 meses de custo).
+- **Custo de oportunidade:** o que você abre mão ao escolher uma alternativa.
+
+## Investimentos (noções)
+- **Liquidez:** facilidade/rapidez de transformar um ativo em dinheiro.
+- **Rentabilidade:** quanto um investimento rende, em %.
+- **Risco × retorno:** em geral, maior retorno esperado ⇒ maior risco.
+- **Renda fixa:** regras de remuneração definidas na aplicação (ex.: Tesouro, CDB).
+- **Renda variável:** retorno incerto, oscila com o mercado (ex.: ações).
+- **Diversificação:** distribuir aplicações para reduzir risco (&quot;não pôr todos os ovos na mesma cesta&quot;).
+- **Amortização:** abatimento gradual do saldo devedor de uma dívida.
+
+---
+
+&gt; 💡 Dica de estudo: transforme cada verbete em um **flashcard** (use o prompt nº 7 da
+&gt; [biblioteca de prompts](../prompts/prompts-reutilizaveis.md)).
+</pre></details><details class="panel" style="margin:12px 0"><summary>guia\resumos.md</summary><pre># 📖 Resumos Estruturados — versão expandida
+
+Consolidação do estudo sobre **juros compostos e educação financeira básica**,
+organizado a partir das fontes curadas no NotebookLM.
+
+---
+
+## 1. O dinheiro no tempo
+Dinheiro **hoje vale mais** que a mesma quantia no futuro, porque pode ser investido e render.
+Esse é o princípio por trás dos juros: o **preço do tempo** aplicado ao dinheiro.
+
+## 2. Juros simples
+- Incidem **sempre sobre o capital inicial**.
+- Crescimento **linear** (reta).
+- Fórmula: `M = C × (1 + i × n)`.
+- Aparece pouco no dia a dia financeiro moderno (mais em multas/contratos específicos).
+
+## 3. Juros compostos
+- Incidem sobre o capital **+ juros já acumulados** → **&quot;juros sobre juros&quot;**.
+- Crescimento **exponencial** (curva que acelera).
+- Fórmula: `M = C × (1 + i)ⁿ`.
+- É o regime da maioria dos investimentos **e das dívidas** (cartão, cheque especial).
+
+### Comparação numérica (R$ 1.000 · 1% a.m. · 12 meses)
+| Regime | Conta | Montante |
+|--------|-------|----------|
+| Simples | 1.000 × (1 + 0,01×12) | R$ 1.120,00 |
+| Composto | 1.000 × (1,01)¹² | R$ 1.126,83 |
+
+## 4. O poder do tempo (bola de neve)
+Aportando **R$ 200/mês a 0,8% a.m. por 30 anos** → montante **≈ R$ 415 mil**,
+com apenas **≈ R$ 72 mil** de aportes. A diferença (**≈ R$ 343 mil**) são juros sobre juros.
+👉 Começar **cedo** vale mais que aportar muito por pouco tempo.
+*(Simulação ilustrativa com taxa fixa; retornos reais oscilam.)*
+
+### Regra dos 72 (atalho mental)
+`tempo para dobrar ≈ 72 ÷ taxa(%)`. A 0,8% a.m. → `72 ÷ 0,8 ≈ 90 meses` (~7,5 anos).
+
+## 5. Inflação e juros reais
+- **Inflação:** aumento geral de preços → **perda de poder de compra**.
+- **Juros nominais:** o rendimento &quot;de fachada&quot;.
+- **Juros reais:** rendimento **descontada a inflação** → `real ≈ nominal − inflação`.
+- Um investimento que rende **menos que a inflação perde dinheiro** em poder de compra.
+
+## 6. Indexadores brasileiros
+- **Selic:** taxa básica da economia (Copom/BC); referência para tudo.
+- **CDI:** empréstimos entre bancos; anda junto da Selic; base da **renda fixa** (&quot;100% do CDI&quot;).
+- **IPCA:** índice oficial de inflação; base dos títulos **&quot;IPCA+&quot;** (protegem o poder de compra).
+
+## 7. Higiene financeira básica (aplicação prática)
+1. **Orçamento** (ex.: método 50/30/20).
+2. **Reserva de emergência** (3–6 meses de custo, em algo líquido).
+3. **Quitar dívidas caras** (rotativo do cartão tem juros compostos altíssimos).
+4. **Investir com objetivo** (curto/médio/longo prazo) e diversificar.
+
+---
+
+### ✅ Checklist de domínio
+- [ ] Sei deduzir e aplicar `M = C(1+i)ⁿ`.
+- [ ] Explico a bola de neve para um leigo.
+- [ ] Diferencio juro nominal de real.
+- [ ] Sei o que são Selic, CDI e IPCA.
+- [ ] Consigo montar um orçamento simples.
+</pre></details><details class="panel" style="margin:12px 0"><summary>prompts\engenharia-e-cicatrizes.md</summary><pre># 🧪 Engenharia de Prompts e &quot;Cicatrizes&quot; (Log completo)
+
+Registro do **raciocínio por trás dos resultados**: perguntas, variações testadas,
+respostas obtidas (resumidas), referências e — o mais importante — as **dificuldades**
+(troubleshooting) e como foram contornadas.
+
+---
+
+## 1. Perguntas estratégicas
+| # | Pergunta | Intenção de estudo |
+|---|----------|--------------------|
+| 1 | Diferença prática entre juros simples e compostos em 1 ano e em 30 anos? | Ver o efeito do tempo. |
+| 2 | O que são juros nominais × reais e como a inflação afeta? | Entender poder de compra. |
+| 3 | O que são Selic, CDI e IPCA e como se relacionam? | Conectar teoria e Brasil real. |
+| 4 | Como explicar o efeito &quot;bola de neve&quot; a um leigo? | Testar didática da IA. |
+| 5 | Quais fórmulas preciso saber e como aplicá-las? | Fixar a matemática. |
+
+---
+
+## 2. Log de variações (prompt → resposta → referência → observação)
+
+### 🔬 Iteração A — Resumo
+- **Prompt v1:** *&quot;Resuma o material.&quot;*
+  - **Resposta:** parágrafo genérico, sem estrutura, misturando fontes.
+  - **Referência:** difusa (não citou).
+  - **Observação:** ❌ pouco útil para estudar.
+- **Prompt v2:** *&quot;Resuma **apenas com base nas fontes** em tópicos: definição, fórmula,
+  exemplo e erro comum. Cite a fonte de cada tópico.&quot;*
+  - **Resposta:** blocos organizados e citáveis.
+  - **Referência:** BCB (conceitos) + Wikipédia (fórmula).
+  - **Observação:** ✅ virou a base da seção de resumos do miniguia.
+
+### 🔬 Iteração B — Cálculo
+- **Prompt:** *&quot;Mostre o cálculo de juros compostos para C = R$ 1.000, i = 1% a.m., n = 12,
+  exibindo a fórmula e o montante.&quot;*
+  - **Resposta:** `1.000 × (1,01)¹² = R$ 1.126,83`.
+  - **Referência:** Wikipédia (fórmula `M = C(1+i)ⁿ`).
+  - **Observação:** ✅ correto ao **fornecer eu os parâmetros** e pedir o passo a passo.
+
+### 🔬 Iteração C — Didática
+- **Prompt:** *&quot;Explique juros compostos como se eu tivesse 15 anos, com analogia do cotidiano.&quot;*
+  - **Resposta:** analogia da **bola de neve** rolando morro abaixo.
+  - **Referência:** ENEF (linguagem cotidiana).
+  - **Observação:** ✅ ótima para memorização.
+
+---
+
+## 3. 🩹 Cicatrizes (troubleshooting)
+
+| Problema encontrado | Sintoma | Correção aplicada |
+|---------------------|---------|-------------------|
+| IA misturava os dois regimes | Exemplo &quot;composto&quot; com conta de juros simples | Pedir a **fórmula explícita** e um regime por vez |
+| Números inventados no longo prazo | Simulações de 30 anos com valores plausíveis, porém errados | **Fornecer os parâmetros** e exigir o cálculo mostrado |
+| Respostas longas sem fonte | Texto corrido, difícil de verificar | Exigir **citação por afirmação** e &quot;não consta&quot; |
+| Confusão de unidade de taxa | Trocar % ao mês por % ao ano | **Declarar a unidade** dentro do prompt |
+| Extrapolação além das fontes | Trazer dados externos não enviados | Instrução fixa: *&quot;use apenas as fontes enviadas&quot;* |
+
+---
+
+## 4. Lições de engenharia de prompts
+1. **Especificidade vence:** formato + escopo + citação no mesmo prompt.
+2. **Dividir para conquistar:** um conceito/um regime por vez reduz erro.
+3. **Você fornece os dados sensíveis** (valores, taxas) — a IA faz o raciocínio.
+4. **Peça a fonte sempre:** transforma a IA de &quot;chute confiante&quot; em ferramenta de estudo.
+</pre></details><details class="panel" style="margin:12px 0"><summary>prompts\prompts-reutilizaveis.md</summary><pre># 🧰 Biblioteca de Prompts Reutilizáveis
+
+Prompts prontos para **revisar juros compostos e educação financeira** no NotebookLM.
+Regra de ouro em todos: **&quot;use apenas as fontes enviadas e cite a fonte de cada afirmação;
+se não constar, responda &#39;não consta&#39;.&quot;**
+
+&gt; Substitua o que está entre `[COLCHETES]` pelo seu foco de estudo.
+
+---
+
+## 🔎 Compreensão e resumo
+```text
+1. Resuma APENAS com base nas fontes enviadas, em tópicos:
+   definição · fórmula · exemplo numérico · erro comum. Cite a fonte de cada tópico.
+
+2. Liste os 5 conceitos mais importantes das fontes sobre [TEMA],
+   com uma frase de explicação cada e a fonte correspondente.
+
+3. Explique &quot;[CONCEITO]&quot; como se eu tivesse 15 anos, usando uma analogia do cotidiano.
+```
+
+## 🧮 Prática e cálculo
+```text
+4. Mostre passo a passo o cálculo de juros compostos para
+   C = R$ [VALOR], i = [TAXA]% ao mês, n = [MESES]. Exiba a fórmula e o montante final.
+
+5. Compare, em uma tabela, [CONCEITO A] × [CONCEITO B],
+   incluindo uma coluna com exemplo numérico.
+
+6. Aplique a &quot;Regra dos 72&quot; para uma taxa de [TAXA]% e explique o que o resultado significa.
+```
+
+## 🃏 Fixação (estudo ativo)
+```text
+7. Crie 5 flashcards (pergunta → resposta curta) sobre [TEMA], baseados só nas fontes.
+
+8. Monte um quiz de 5 questões de múltipla escolha (A–D) com gabarito comentado.
+
+9. Gere 3 perguntas de &quot;pegadinha&quot; que costumam confundir iniciantes em [TEMA],
+   com a resposta correta e por que erram.
+```
+
+## 🧠 Síntese e revisão
+```text
+10. Crie um mapa mental em texto (tópicos e subtópicos) conectando os conceitos das fontes.
+
+11. Monte um plano de revisão em 3 sessões de 20 min sobre [TEMA],
+    dizendo o que estudar em cada uma.
+
+12. Aponte contradições ou diferenças de definição entre as fontes enviadas, se houver.
+```
+
+## ✅ Controle de qualidade (anti-alucinação)
+```text
+13. Reescreva sua última resposta citando, ao lado de cada afirmação, o nome do documento-fonte.
+    Marque como &quot;não consta&quot; qualquer ponto que não esteja nas fontes.
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>README.md</summary><pre># 📓 Miniguia de Estudos — Juros Compostos &amp; Educação Financeira Básica
+
+&gt; Caderno Temático construído no **NotebookLM** como exercício de **aprendizagem ativa com IA**:
+&gt; curadoria de fontes abertas, engenharia de prompts e organização do conhecimento.
+
+![Tema](https://img.shields.io/badge/Tema-Finan%C3%A7as%20Introdut%C3%B3rias-2E7D32)
+![IA](https://img.shields.io/badge/IA-NotebookLM-4285F4)
+![Tipo](https://img.shields.io/badge/Projeto-Miniguia%20de%20Estudos-8E24AA)
+![Licen%C3%A7a](https://img.shields.io/badge/Licen%C3%A7a-MIT-lightgrey)
+
+Desafio da **DIO** — *&quot;Criando um Caderno Temático no NotebookLM&quot;*. A proposta é usar a IA
+não como resposta pronta, mas como **ferramenta de estudo**: selecionar fontes confiáveis,
+fazer boas perguntas, testar variações de prompt, registrar as &quot;cicatrizes&quot; (dificuldades)
+e consolidar tudo em um miniguia reutilizável.
+
+---
+
+## 🗂️ Índice
+
+1. [Contexto e Objetivos](#-1-contexto-e-objetivos)
+2. [Curadoria de Fontes](#-2-curadoria-de-fontes)
+3. [Engenharia de Prompts e &quot;Cicatrizes&quot;](#-3-engenharia-de-prompts-e-cicatrizes)
+4. [Miniguia de Estudo (Entrega Final)](#-4-miniguia-de-estudo-entrega-final)
+   - [4.1 Resumos estruturados](#41-resumos-estruturados)
+   - [4.2 Glossário de conceitos](#42-glossário-de-conceitos)
+   - [4.3 Prompts reutilizáveis](#43-prompts-reutilizáveis)
+5. [Estrutura do repositório](#-estrutura-do-repositório)
+6. [O que aprendi](#-o-que-aprendi)
+
+---
+
+## 🎯 1. Contexto e Objetivos
+
+### Assunto escolhido
+**Juros compostos e educação financeira básica.**
+
+Escolhi este tema por ser a **porta de entrada** de qualquer trilha de finanças pessoais:
+entender como o dinheiro se comporta no tempo é o alicerce para orçamento, dívidas,
+poupança e investimentos. É um assunto introdutório, de alto impacto prático na vida real
+e com **fontes públicas e gratuitas** de excelente qualidade (Banco Central, CVM, ENEF).
+
+### Por que estudar isso com IA?
+Educação financeira sofre com **excesso de conteúdo raso e conflitante** na internet.
+O NotebookLM permite &quot;prender&quot; a IA a um conjunto de fontes **confiáveis que eu escolhi**,
+reduzindo alucinação e me forçando a praticar **curadoria** e **pensamento crítico**.
+
+### Objetivos de estudo
+- [x] Diferenciar **juros simples** de **juros compostos** e saber quando cada um aparece.
+- [x] Entender o efeito **&quot;bola de neve&quot;** dos juros compostos no longo prazo.
+- [x] Compreender o impacto da **inflação** sobre o poder de compra (juros nominais × reais).
+- [x] Conhecer os principais **indexadores** brasileiros: Selic, CDI e IPCA.
+- [x] Montar um **vocabulário mínimo** (glossário) para não travar em textos financeiros.
+- [x] Criar um **kit de prompts** reutilizável para revisar o tema no futuro.
+
+---
+
+## 📚 2. Curadoria de Fontes
+
+Foram selecionadas **4 fontes abertas** (texto/PDF), todas públicas e gratuitas, e feito o
+upload no NotebookLM. O critério foi **confiabilidade institucional** + **linguagem introdutória**.
+
+| # | Fonte | Tipo | Instituição | Por que escolhi |
+|---|-------|------|-------------|-----------------|
+| 1 | **Caderno de Educação Financeira – Gestão de Finanças Pessoais** — [bcb.gov.br/cidadaniafinanceira](https://www.bcb.gov.br/cidadaniafinanceira) | PDF | Banco Central do Brasil | Material oficial, didático, cobre orçamento, juros e endividamento. |
+| 2 | **Portal do Investidor / Cadernos CVM** — [investidor.gov.br](https://www.investidor.gov.br) | Texto/PDF | CVM | Explica juros, renda fixa e risco com foco no investidor iniciante. |
+| 3 | **Vida e Dinheiro (ENEF)** — [vidaedinheiro.gov.br](https://www.vidaedinheiro.gov.br) | Texto/PDF | Estratégia Nacional de Educação Financeira | Conteúdo introdutório e cartilhas com exemplos do dia a dia. |
+| 4 | **Juros compostos (verbete)** — [pt.wikipedia.org/wiki/Juros_compostos](https://pt.wikipedia.org/wiki/Juros_compostos) | Texto | Wikipédia (aberta) | Traz a **fórmula matemática** e a comparação direta com juros simples. |
+
+&gt; 🔎 **Detalhes da curadoria** (anotações, trechos-chave e notas de confiabilidade de cada fonte):
+&gt; [`fontes/curadoria-de-fontes.md`](fontes/curadoria-de-fontes.md)
+
+&gt; ⚠️ **Nota de transparência:** os links apontam para os **portais oficiais estáveis** das
+&gt; instituições. Os documentos específicos (PDFs) foram acessados a partir desses portais e
+&gt; enviados ao NotebookLM. Preferi linkar o portal a fixar deep-links que costumam quebrar.
+
+---
+
+## 🧪 3. Engenharia de Prompts e &quot;Cicatrizes&quot;
+
+Aqui está o **raciocínio por trás dos resultados** — não só o prompt final que &quot;funcionou&quot;,
+mas o caminho, as variações e as dificuldades (o mercado valoriza isso!).
+
+### 3.1 Perguntas estratégicas elaboradas
+1. Qual a diferença prática entre juros simples e compostos em 1 ano? E em 30 anos?
+2. Como a inflação corrói o rendimento? O que são juros **reais** × **nominais**?
+3. O que significam Selic, CDI e IPCA e como se relacionam?
+4. Como explicar o efeito &quot;bola de neve&quot; para uma pessoa leiga?
+5. Quais fórmulas eu preciso saber e como aplicá-las com um exemplo numérico?
+
+### 3.2 Variações de prompt testadas (e o que cada uma revelou)
+
+| Objetivo | Prompt (versão que testei) | Resultado / observação |
+|----------|----------------------------|------------------------|
+| Resumo geral | *&quot;Resuma o material.&quot;* | ❌ Genérico demais, misturou as fontes sem estrutura. |
+| Resumo estruturado | *&quot;Resuma **apenas com base nas fontes enviadas** em tópicos: definição, fórmula, exemplo e erro comum.&quot;* | ✅ Muito melhor — objetivo e citável. |
+| Comparação | *&quot;Monte uma tabela comparando juros simples × compostos com uma coluna de exemplo numérico de R$ 1.000 a 1% ao mês por 12 meses.&quot;* | ✅ Ótimo para fixação. |
+| Didático | *&quot;Explique &#39;juros compostos&#39; como se eu tivesse 15 anos, usando uma analogia do cotidiano.&quot;* | ✅ Gerou a analogia da bola de neve. |
+| Verificação | *&quot;Cada afirmação da resposta deve citar a fonte (nome do documento). Se não estiver nas fontes, diga &#39;não consta&#39;.&quot;* | ✅ Reduziu drasticamente a alucinação. |
+
+&gt; 🧾 **Log completo de prompts, respostas resumidas e referências:**
+&gt; [`prompts/engenharia-e-cicatrizes.md`](prompts/engenharia-e-cicatrizes.md)
+
+### 3.3 🩹 Cicatrizes (troubleshooting — dificuldades reais)
+- **A IA misturava juros simples e compostos** em exemplos numéricos. → *Correção:* pedir a
+  **fórmula explícita** e um exemplo passo a passo, um regime de cada vez.
+- **Números &quot;inventados&quot;** em simulações de longo prazo. → *Correção:* fornecer eu mesmo os
+  parâmetros (aporte, taxa, prazo) e pedir para **mostrar o cálculo**, não só o resultado.
+- **Respostas longas e sem fonte.** → *Correção:* exigir citação da fonte por afirmação e
+  limitar a resposta às fontes enviadas (&quot;não consta&quot; quando faltar).
+- **Confusão entre taxa nominal e efetiva / mensal e anual.** → *Correção:* sempre declarar a
+  **unidade da taxa** (% ao mês vs. % ao ano) dentro do próprio prompt.
+
+---
+
+## 📖 4. Miniguia de Estudo (Entrega Final)
+
+### 4.1 Resumos estruturados
+
+#### 💡 Juros simples × juros compostos
+- **Juros simples:** incidem **sempre sobre o capital inicial**. Crescimento **linear**.
+  `M = C × (1 + i × n)`
+- **Juros compostos:** incidem sobre o capital **+ juros já acumulados** (&quot;juros sobre juros&quot;).
+  Crescimento **exponencial**. `M = C × (1 + i)ⁿ`
+  - `M` = montante · `C` = capital · `i` = taxa (por período) · `n` = nº de períodos.
+
+**Exemplo (R$ 1.000 a 1% ao mês por 12 meses):**
+| Regime | Cálculo | Montante |
+|--------|---------|----------|
+| Simples | 1.000 × (1 + 0,01 × 12) | **R$ 1.120,00** |
+| Composto | 1.000 × (1,01)¹² | **R$ 1.126,83** |
+
+Em 1 ano a diferença é pequena; é no **longo prazo** que ela explode.
+
+#### 🏔️ O efeito &quot;bola de neve&quot; (longo prazo)
+Investindo **R$ 200/mês a 0,8% ao mês durante 30 anos**, o montante chega a
+**≈ R$ 415 mil** — sendo que apenas **≈ R$ 72 mil** saíram do bolso (aportes).
+O resto (**≈ R$ 343 mil**) são **juros sobre juros**. Tempo é a variável mais poderosa.
+*(Simulação ilustrativa com taxa fixa; retornos reais variam.)*
+
+#### 📉 Inflação: juros nominais × reais
+- **Juros nominais** = o número &quot;de fachada&quot;.
+- **Juros reais** = o que sobra **depois de descontar a inflação** (poder de compra).
+- Aproximação: `juro real ≈ juro nominal − inflação`.
+  Render 10% ao ano com inflação de 6% ≈ **~4% real**.
+
+#### 🏦 Indexadores brasileiros (o &quot;trio&quot;)
+- **Selic:** taxa básica de juros da economia (definida pelo Copom/Banco Central).
+- **CDI:** referência dos empréstimos entre bancos; anda **coladinho na Selic**. Base da renda fixa.
+- **IPCA:** índice oficial de **inflação** ao consumidor. Base dos títulos &quot;IPCA+&quot;.
+
+&gt; 📄 Versão expandida dos resumos: [`guia/resumos.md`](guia/resumos.md)
+
+### 4.2 Glossário de conceitos
+
+| Termo | Definição curta |
+|-------|-----------------|
+| **Capital (principal)** | Valor inicial aplicado ou emprestado. |
+| **Montante** | Capital + juros ao final do período. |
+| **Taxa de juros** | Preço do dinheiro no tempo, em % por período. |
+| **Capitalização** | Momento em que o juro é incorporado ao saldo. |
+| **Juros compostos** | Juros que incidem sobre capital + juros acumulados. |
+| **Regra dos 72** | Atalho: `72 ÷ taxa(%)` ≈ tempo para **dobrar** o dinheiro. |
+| **Inflação / IPCA** | Perda do poder de compra ao longo do tempo. |
+| **Juros reais** | Rendimento já descontada a inflação. |
+| **Selic / CDI** | Taxa básica da economia / referência da renda fixa. |
+| **Liquidez** | Facilidade de transformar um ativo em dinheiro. |
+| **Aporte** | Cada novo depósito feito no investimento. |
+| **Reserva de emergência** | Dinheiro líquido para imprevistos (3–6 meses de custo). |
+| **Custo de oportunidade** | O que você abre mão ao escolher uma opção. |
+| **Diversificação** | &quot;Não pôr todos os ovos na mesma cesta&quot;. |
+| **Orçamento 50/30/20** | 50% necessidades, 30% desejos, 20% poupança/dívidas. |
+
+&gt; 📄 Glossário completo (com exemplos): [`guia/glossario.md`](guia/glossario.md)
+
+### 4.3 Prompts reutilizáveis
+
+Kit para **revisar o tema no futuro** (basta colar no NotebookLM com as fontes carregadas):
+
+```text
+1. &quot;Resuma APENAS com base nas fontes enviadas em tópicos:
+    definição, fórmula, exemplo numérico e erro comum. Cite a fonte de cada tópico.&quot;
+
+2. &quot;Crie 5 flashcards (pergunta → resposta curta) sobre juros compostos,
+    baseados somente nas fontes.&quot;
+
+3. &quot;Explique [CONCEITO] como se eu tivesse 15 anos, com uma analogia do cotidiano.&quot;
+
+4. &quot;Monte um quiz de 5 questões de múltipla escolha com gabarito comentado,
+    usando apenas o conteúdo das fontes.&quot;
+
+5. &quot;Compare [CONCEITO A] e [CONCEITO B] em uma tabela com exemplo numérico.&quot;
+```
+
+&gt; 🧰 Biblioteca completa (10+ prompts prontos): [`prompts/prompts-reutilizaveis.md`](prompts/prompts-reutilizaveis.md)
+
+---
+
+## 📁 Estrutura do repositório
+
+```
+miniguia-estudos-notebooklm/
+├── README.md                        # Este miniguia (entrega principal)
+├── fontes/
+│   └── curadoria-de-fontes.md       # Anotações e critérios de cada fonte
+├── prompts/
+│   ├── prompts-reutilizaveis.md     # Biblioteca de prompts para revisão
+│   └── engenharia-e-cicatrizes.md   # Log de prompts + troubleshooting
+├── guia/
+│   ├── resumos.md                   # Resumos estruturados (versão longa)
+│   └── glossario.md                 # Glossário completo
+└── LICENSE
+```
+
+---
+
+## 🌱 O que aprendi
+
+- **Curadoria &gt; quantidade:** poucas fontes confiáveis rendem mais que dezenas de links.
+- **Prompt é iteração:** o primeiro prompt quase nunca é o bom; o valor está no ajuste.
+- **Amarrar a IA às fontes** (e exigir citação) é o que separa estudo sério de &quot;achismo&quot;.
+- Documentar as **cicatrizes** transforma erro em aprendizado — e mostra maturidade técnica.
+
+---
+
+&lt;div align=&quot;center&quot;&gt;
+
+**Desafio DIO** · Caderno Temático no NotebookLM · feito por [**@mkbraion**](https://github.com/mkbraion)
+
+*IA como ferramenta de aprendizagem ativa: pensamento crítico + curadoria + organização.*
+
+&lt;/div&gt;
+</pre></details></main><footer>Nelson Neto · Versões web simples. </footer></body></html>

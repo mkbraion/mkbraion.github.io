@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bot de WhatsApp com IA · Simulador</title>
+<meta name="description" content="Atendente virtual com IA que qualifica leads no WhatsApp. Simulador funcional (IA keyless) + caminho de integração real." />
+<style>
+  :root{
+    --bg:#0b141a;--panel:#111b21;--head:#202c33;--in:#202c33;--out:#005c4b;--text:#e9edef;
+    --muted:#8696a0;--brand:#00a884;--border:#2a3942;--radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0a0f13;color:var(--text);min-height:100vh}
+  .page{max-width:900px;margin:0 auto;padding:24px 16px 40px}
+  .intro{text-align:center;margin-bottom:20px}
+  .intro h1{font-size:clamp(24px,4vw,34px);margin-bottom:8px}
+  .intro h1 b{color:var(--brand)}
+  .intro p{color:var(--muted);max-width:560px;margin:0 auto;font-size:15px}
+  .config{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;margin:18px 0;display:grid;grid-template-columns:1fr 1.4fr;gap:12px}
+  @media(max-width:560px){.config{grid-template-columns:1fr}}
+  .config label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+  .config input{width:100%;background:var(--head);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit}
+  /* phone */
+  .phone{max-width:420px;margin:0 auto;background:var(--panel);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  .bar{background:var(--head);display:flex;align-items:center;gap:12px;padding:12px 14px}
+  .avatar{width:40px;height:40px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:20px}
+  .bar .who{font-weight:600;font-size:15px}
+  .bar .st{font-size:12px;color:var(--muted)}
+  .chat{height:440px;overflow-y:auto;padding:16px;background:#0b141a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23162029'/%3E%3C/svg%3E");display:flex;flex-direction:column;gap:8px}
+  .msg{max-width:80%;padding:8px 11px;border-radius:10px;font-size:14px;line-height:1.4;white-space:pre-wrap;word-wrap:break-word}
+  .msg.bot{background:var(--in);align-self:flex-start;border-top-left-radius:2px}
+  .msg.user{background:var(--out);align-self:flex-end;border-top-right-radius:2px}
+  .msg .t{display:block;font-size:10px;color:rgba(233,237,239,.5);text-align:right;margin-top:2px}
+  .typing{align-self:flex-start;color:var(--muted);font-size:13px;padding:4px 8px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px;background:var(--panel)}
+  .chip{background:var(--head);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer}
+  .chip:hover{color:var(--text);border-color:var(--brand)}
+  .compose{display:flex;gap:8px;padding:10px 12px;background:var(--head)}
+  .compose input{flex:1;background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:20px;padding:10px 14px;font-size:14px;font-family:inherit;outline:none}
+  .compose button{background:var(--brand);border:0;color:#04231c;width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;font-weight:700}
+  .compose button:disabled{opacity:.5;cursor:wait}
+  .reset{display:block;margin:14px auto 0;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+  .reset:hover{color:var(--text);border-color:var(--brand)}
+  .note{background:rgba(0,168,132,.1);border:1px solid rgba(0,168,132,.3);color:#8fe6d0;border-radius:10px;padding:12px 14px;font-size:13px;margin-top:22px;text-align:center}
+  .note a{color:var(--brand)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="intro">
+    <h1>Bot de WhatsApp com <b>IA</b></h1>
+    <p>Atendente virtual que responde clientes e <b>qualifica leads</b> sozinho. Este é um simulador — o cérebro (IA) é real; a conversa abaixo funciona de verdade.</p>
+  </div>
+
+  <div class="config">
+    <div>
+      <label>Nome do negócio</label>
+      <input id="c-nome" value="Clínica Bem Estar" />
+    </div>
+    <div>
+      <label>O que o negócio faz (contexto para a IA)</label>
+      <input id="c-desc" value="clínica de estética que faz limpeza de pele, drenagem e depilação a laser" />
+    </div>
+  </div>
+
+  <div class="phone">
+    <div class="bar">
+      <div class="avatar">🤖</div>
+      <div>
+        <div class="who" id="botname">Clínica Bem Estar</div>
+        <div class="st">online · atendente virtual</div>
+      </div>
+    </div>
+    <div class="chat" id="chat"></div>
+    <div class="chips" id="chips">
+      <span class="chip">Oi, quero saber os preços</span>
+      <span class="chip">Vocês têm horário essa semana?</span>
+      <span class="chip">Onde fica?</span>
+    </div>
+    <div class="compose">
+      <input id="input" placeholder="Digite uma mensagem" autocomplete="off" />
+      <button id="send" title="Enviar">➤</button>
+    </div>
+  </div>
+  <button class="reset" id="reset">↻ Reiniciar conversa</button>
+
+  <div class="note">
+    💡 Este simulador usa IA keyless (Pollinations). Para ligar num WhatsApp real, veja o
+    <a href="https://github.com/mkbraion/bot-whatsapp-ia#integração-real" target="_blank" rel="noopener">guia de integração</a>
+    (whatsapp-web.js + backend SalesHub).
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let history = []; // {role:'user'|'bot', text}
+
+function greeting(){
+  return `Oi! 👋 Aqui é o atendimento da ${$('c-nome').value.trim() || 'nossa empresa'}. Como posso te ajudar hoje?`;
+}
+
+function cleanResponse(t){
+  const markers=['**Support Pollinations','Support Pollinations','Powered by Pollinations','🌸','pollinations.ai/redirect'];
+  let cut=t.length;
+  for(const m of markers){ const i=t.indexOf(m); if(i!==-1 && i<cut) cut=i; }
+  return t.slice(0,cut).replace(/[\s\-*_]+$/,'').trim();
+}
+
+function buildPrompt(){
+  const nome = $('c-nome').value.trim() || 'a empresa';
+  const desc = $('c-desc').value.trim() || 'atende clientes';
+  const transcript = history.slice(-8).map(m => (m.role==='user'?'Cliente':'Atendente') + ': ' + m.text).join('\n');
+  return `Você é a atendente virtual da empresa "${nome}", que ${desc}. `
+    + `Objetivo: atender com simpatia, tirar dúvidas e QUALIFICAR o lead — descubra o nome da pessoa, o que ela precisa e, quando fizer sentido, ofereça agendar ou falar com um humano. `
+    + `Regras: responda em português do Brasil, curto (1 a 3 frases), no máximo 1 emoji, tom próximo e prestativo. `
+    + `Não invente preços exatos; se perguntarem valor, dê uma faixa aproximada ou ofereça encaminhar para um atendente. `
+    + `Faça UMA pergunta por vez para conduzir a conversa.\n\n`
+    + `Conversa até agora:\n${transcript}\nAtendente:`;
+}
+
+function systemPrompt(){
+  const nome = $('c-nome').value.trim() || 'a empresa';
+  const desc = $('c-desc').value.trim() || 'atende clientes';
+  return `Você é a atendente virtual da empresa "${nome}", que ${desc}. `
+    + `Objetivo: atender com simpatia, tirar dúvidas e QUALIFICAR o lead — descubra o nome da pessoa, o que ela precisa e, quando fizer sentido, ofereça agendar ou falar com um humano. `
+    + `Responda em português do Brasil, curto (1 a 3 frases), no máximo 1 emoji, tom próximo. `
+    + `Não invente preços exatos; dê uma faixa ou ofereça encaminhar. Faça UMA pergunta por vez.`;
+}
+
+// Monta os papéis (roles) para o endpoint POST OpenAI-compatível
+function buildMessages(){
+  const msgs = [{ role:'system', content: systemPrompt() }];
+  history.slice(-10).forEach(m => msgs.push({ role: m.role==='user'?'user':'assistant', content: m.text }));
+  return msgs;
+}
+
+// Uma resposta HTML (ex.: página de erro 502) nunca é uma mensagem válida
+function looksLikeHtml(t){ return /^\s*<(?:!doctype|html)/i.test(t); }
+
+// Tenta POST (ideal p/ chat), cai para GET, depois desiste (null -> fallback)
+async function callAI(){
+  try{
+    const r = await fetch('https://text.pollinations.ai/openai', {
+      method:'POST', signal: AbortSignal.timeout(12000), headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'openai', messages: buildMessages() })
+    });
+    if(r.ok){
+      const ct = r.headers.get('content-type') || '';
+      if(ct.includes('json')){
+        const j = await r.json();
+        const c = j.choices?.[0]?.message?.content;
+        if(c && !looksLikeHtml(c)) return cleanResponse(c);
+      } else {
+        const t = await r.text();
+        if(t && !looksLikeHtml(t)) return cleanResponse(t);
+      }
+    }
+  }catch(e){ /* tenta o GET */ }
+  try{
+    const r = await fetch('https://text.pollinations.ai/' + encodeURIComponent(buildPrompt()) + '?model=openai', {signal: AbortSignal.timeout(12000)});
+    if(r.ok){ const t = await r.text(); if(t && !looksLikeHtml(t)) return cleanResponse(t); }
+  }catch(e){ /* desiste */ }
+  return null;
+}
+
+function timeNow(){ return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); }
+
+function addMsg(role, text){
+  const el = document.createElement('div');
+  el.className = 'msg ' + role;
+  el.innerHTML = esc(text) + `<span class="t">${timeNow()}</span>`;
+  $('chat').appendChild(el);
+  $('chat').scrollTop = $('chat').scrollHeight;
+}
+function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function showTyping(on){
+  let t = document.getElementById('typing');
+  if(on && !t){
+    t = document.createElement('div'); t.id='typing'; t.className='typing'; t.textContent='digitando…';
+    $('chat').appendChild(t); $('chat').scrollTop = $('chat').scrollHeight;
+  } else if(!on && t){ t.remove(); }
+}
+
+async function botReply(){
+  showTyping(true);
+  $('send').disabled = true;
+  const text = await callAI();
+  showTyping(false);
+  const finalText = text
+    || 'Desculpa, tive uma instabilidade agora. 🙈 Pode repetir? Ou, se preferir, me diz seu nome e o que precisa que já te ajudo.';
+  history.push({ role:'bot', text: finalText });
+  addMsg('bot', finalText);
+  $('send').disabled = false;
+  $('input').focus();
+}
+
+function sendUser(text){
+  text = (text || $('input').value).trim();
+  if(!text) return;
+  $('input').value = '';
+  history.push({role:'user', text});
+  addMsg('user', text);
+  botReply();
+}
+
+function start(){
+  history = [];
+  $('chat').innerHTML = '';
+  $('botname').textContent = $('c-nome').value.trim() || 'Atendente';
+  const g = greeting();
+  history.push({role:'bot', text:g});
+  addMsg('bot', g);
+}
+
+$('send').addEventListener('click', ()=> sendUser());
+$('input').addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendUser(); });
+$('chips').addEventListener('click', (e)=>{ if(e.target.classList.contains('chip')) sendUser(e.target.textContent); });
+$('reset').addEventListener('click', start);
+$('c-nome').addEventListener('change', ()=> $('botname').textContent = $('c-nome').value.trim() || 'Atendente');
+start();
+</script>
+</body>
+</html>

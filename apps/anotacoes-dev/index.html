@@ -1,0 +1,150 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Caderno de desenvolvimento — aplicativos simples de Nelson Neto"><title>Caderno de desenvolvimento</title><link rel="stylesheet" href="../style.css"></head><body><header><a href="../index.html">NN / Aplicativos</a><a href="https://mkbraion.github.io/">Portfólio ↗</a></header><main><span class="eyebrow">Biblioteca de estudo</span><h1>Caderno de desenvolvimento</h1><p>Material do repositório, disponível para leitura no navegador.</p><details class="panel" style="margin:12px 0"><summary>notas\api.md</summary><pre># REST
+
+- GET: ler
+- POST: criar
+- PUT/PATCH: atualizar
+- DELETE: remover
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\bash.md</summary><pre># Bash
+
+```bash
+cd -        # volta pro diretório anterior
+!!          # repete o último comando
+Ctrl+R      # busca no histórico
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\css.md</summary><pre># CSS — Flexbox
+
+```css
+.container { display: flex; gap: 12px; }
+.container &gt; * { flex: 1; }        /* divide igual */
+.center { justify-content: center; align-items: center; }
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\flutter.md</summary><pre># Flutter — anotações rápidas
+
+## Widget com estado vs sem estado
+- `StatelessWidget`: só desenha, não muda sozinho.
+- `StatefulWidget`: guarda estado e redesenha com `setState(() { ... })`.
+
+## Rodar e limpar
+```bash
+flutter run              # roda no device/emulador conectado
+flutter clean            # limpa build quando dá erro estranho
+flutter pub get          # baixa as dependências do pubspec.yaml
+```
+
+## Formatar dinheiro (pt-BR)
+```dart
+import &#39;package:intl/intl.dart&#39;;
+
+final brl = NumberFormat.currency(locale: &#39;pt_BR&#39;, symbol: &#39;R\$&#39;);
+brl.format(1234.5); // R$ 1.234,50
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\git.md</summary><pre># Git — comandos que sempre esqueço
+
+## Desfazer coisas
+```bash
+git restore arquivo.txt        # descarta mudanças não commitadas de um arquivo
+git restore --staged arquivo   # tira do stage sem perder a mudança
+git reset --soft HEAD~1        # desfaz o último commit, mantém as mudanças
+```
+
+## Branches
+```bash
+git switch -c minha-feature    # cria e entra no branch
+git branch -d minha-feature    # apaga branch já mergeado
+git push -u origin minha-feature
+```
+
+## Ver o que mudou
+```bash
+git log --oneline -10          # últimos 10 commits resumidos
+git diff --staged              # o que vai entrar no próximo commit
+```
+
+## Dica
+Commit pequeno e com mensagem no imperativo (&quot;adiciona X&quot;, &quot;corrige Y&quot;)
+fica muito mais fácil de ler o histórico depois.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\html.md</summary><pre># HTML — semântica
+
+Use `&lt;header&gt;`, `&lt;main&gt;`, `&lt;nav&gt;`, `&lt;footer&gt;` em vez de `&lt;div&gt;` pra tudo.
+Melhora acessibilidade e SEO.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\javascript.md</summary><pre># JavaScript — snippets úteis
+
+## Array methods que uso sempre
+```js
+const nums = [1, 2, 3, 4];
+
+nums.map(n =&gt; n * 2);          // [2, 4, 6, 8]
+nums.filter(n =&gt; n % 2 === 0); // [2, 4]
+nums.reduce((acc, n) =&gt; acc + n, 0); // 10
+```
+
+## async/await
+```js
+async function buscarUsuario(id) {
+  try {
+    const res = await fetch(`/api/users/${id}`);
+    if (!res.ok) throw new Error(&quot;Falha na requisição&quot;);
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+```
+
+## Formatar dinheiro em BRL
+```js
+const brl = (v) =&gt;
+  v.toLocaleString(&quot;pt-BR&quot;, { style: &quot;currency&quot;, currency: &quot;BRL&quot; });
+
+brl(1234.5); // &quot;R$ 1.234,50&quot;
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\json.md</summary><pre># JSON
+
+Sem vírgula no último item, chaves sempre entre aspas duplas.
+`JSON.parse` / `JSON.stringify` no JS.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\markdown.md</summary><pre># Markdown
+
+`**negrito**`, `*itálico*`, `[texto](url)`, `\`.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\produtividade.md</summary><pre># Produtividade
+
+Técnica Pomodoro: 25 min de foco + 5 min de pausa.
+PRs pequenos e frequentes são mais fáceis de revisar.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\python.md</summary><pre># Python
+
+```python
+pares = [n for n in range(20) if n % 2 == 0]
+quadrados = {n: n*n for n in range(5)}
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\regex.md</summary><pre># Regex
+
+- `^\d{5}-?\d{3}$` → CEP
+- `\S+@\S+\.\S+` → e-mail simples
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\seguranca.md</summary><pre># Segurança
+
+Nunca commite .env nem chaves de API.
+Use variáveis de ambiente e coloque .env no .gitignore.
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\sql.md</summary><pre># SQL — básico
+
+```sql
+SELECT nome, preco FROM produtos
+WHERE preco &gt; 100
+ORDER BY preco DESC
+LIMIT 10;
+```
+</pre></details><details class="panel" style="margin:12px 0"><summary>notas\vscode.md</summary><pre># VS Code
+
+- Ctrl+P: abrir arquivo
+- Ctrl+Shift+P: paleta de comandos
+- Alt+↑/↓: mover linha
+</pre></details><details class="panel" style="margin:12px 0"><summary>README.md</summary><pre># anotacoes-dev
+
+Caderno pessoal de estudo. Vou anotando aqui o que aprendo em JavaScript, Git e Flutter
+pra não esquecer e poder consultar depois.
+
+## Índice
+- [Git — comandos que sempre esqueço](notas/git.md)
+- [JavaScript — snippets úteis](notas/javascript.md)
+
+&gt; Repositório pessoal, sem pretensão de biblioteca. Se te ajudar, ótimo.
+</pre></details></main><footer>Nelson Neto · Versões web simples. </footer></body></html>
