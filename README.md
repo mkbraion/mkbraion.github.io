@@ -9,7 +9,7 @@
 
 </div>
 
-**Stack / tópicos:** ``css`` · ``developer-portfolio`` · ``frontend`` · ``github-pages`` · ``html`` · ``javascript`` · ``portfolio`` · ``software-engineering`` · ``web-development`` · ``whatsapp``
+**Stack / tópicos:** ``artificial-intelligence`` · ``css`` · ``developer-portfolio`` · ``frontend`` · ``github-pages`` · ``html`` · ``javascript`` · ``portfolio`` · ``software-engineering`` · ``vercel`` · ``web-development`` · ``whatsapp``
 
 > Projeto mantido por [@mkbraion](https://github.com/mkbraion).
 <!-- MKBRAION-POLISH:END -->
