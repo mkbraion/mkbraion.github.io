@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerador de Conteúdo com IA · KAIA</title>
+<meta name="description" content="Gere legendas, roteiros de Reels, threads e anúncios com IA — grátis, sem cadastro e sem chave de API." />
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --card: #141a2b;
+    --card-2: #1b2338;
+    --border: #263049;
+    --text: #e8ecf6;
+    --muted: #97a1bb;
+    --brand: #7c5cff;
+    --brand-2: #38bdf8;
+    --ok: #34d399;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(1200px 600px at 80% -10%, #1c2440 0%, var(--bg) 55%);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { text-align: center; margin-bottom: 28px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 800; letter-spacing: .5px; font-size: 15px;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .logo .dot { width: 10px; height: 10px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
+  h1 {
+    font-size: clamp(28px, 5vw, 40px); margin: 14px 0 8px; line-height: 1.15;
+    background: linear-gradient(120deg, #fff 20%, var(--brand-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { color: var(--muted); max-width: 560px; margin: 0 auto; font-size: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px; margin-top: 22px;
+  }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+  input, select, textarea {
+    width: 100%; background: var(--card-2); border: 1px solid var(--border);
+    color: var(--text); border-radius: 10px; padding: 12px 14px; font-size: 15px;
+    font-family: inherit; outline: none; transition: border-color .15s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--brand); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  @media (max-width: 560px) { .grid, .grid-3 { grid-template-columns: 1fr; } }
+  .field { margin-top: 14px; }
+  button.gen {
+    margin-top: 20px; width: 100%; border: 0; cursor: pointer;
+    background: linear-gradient(120deg, var(--brand), var(--brand-2));
+    color: #fff; font-weight: 700; font-size: 16px; padding: 15px; border-radius: 12px;
+    transition: transform .08s, opacity .15s;
+  }
+  button.gen:hover { transform: translateY(-1px); }
+  button.gen:disabled { opacity: .6; cursor: wait; }
+  .out {
+    margin-top: 22px; white-space: pre-wrap; font-size: 15px;
+    background: var(--card-2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; min-height: 80px; color: #eef1fa;
+  }
+  .out.empty { color: var(--muted); }
+  .out-head { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+  .out-head h3 { margin: 0; font-size: 15px; }
+  .copy {
+    background: var(--card-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 7px 12px; font-size: 13px; cursor: pointer;
+  }
+  .copy:hover { border-color: var(--brand); }
+  .copy.done { color: var(--ok); border-color: var(--ok); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip {
+    background: var(--card-2); border: 1px solid var(--border); color: var(--muted);
+    border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--brand); color: var(--text); }
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 40px; }
+  a { color: var(--brand-2); text-decoration: none; }
+  .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.4);
+    border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo"><span class="dot"></span> KAIA · Conteúdo</div>
+      <h1>Gerador de Conteúdo com IA</h1>
+      <p class="sub">Legendas, roteiros de Reels, threads e anúncios prontos em segundos. Grátis, sem cadastro e sem chave de API.</p>
+    </header>
+
+    <div class="card">
+      <div class="field">
+        <label for="tema">Sobre o que é o conteúdo? (produto, tema, oferta)</label>
+        <input id="tema" placeholder="Ex.: curso de confeitaria para iniciantes" />
+        <div class="chips" id="chips">
+          <span class="chip">Consultoria de marketing</span>
+          <span class="chip">Loja de roupas fitness</span>
+          <span class="chip">Barbearia premium</span>
+          <span class="chip">Curso de inglês online</span>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div>
+          <label for="tipo">Tipo</label>
+          <select id="tipo">
+            <option value="legenda para post no Instagram, com quebras de linha e emojis">Legenda de Instagram</option>
+            <option value="roteiro de Reels de 30 segundos com gancho, desenvolvimento e chamada para ação, dividido em cenas">Roteiro de Reels</option>
+            <option value="thread para o X/Twitter com 5 a 7 posts numerados">Thread (X/Twitter)</option>
+            <option value="texto de anúncio persuasivo para tráfego pago, com título e corpo">Anúncio (tráfego pago)</option>
+            <option value="e-mail de vendas curto e persuasivo com assunto e corpo">E-mail de vendas</option>
+            <option value="5 ideias de conteúdo com título e um resumo de uma linha cada">5 ideias de post</option>
+          </select>
+        </div>
+        <div>
+          <label for="tom">Tom de voz</label>
+          <select id="tom">
+            <option>descontraído e próximo</option>
+            <option>profissional e confiável</option>
+            <option>persuasivo e urgente</option>
+            <option>divertido e bem-humorado</option>
+            <option>inspirador e motivacional</option>
+          </select>
+        </div>
+        <div>
+          <label for="plat">Público</label>
+          <select id="plat">
+            <option>público geral</option>
+            <option>jovens de 18 a 25 anos</option>
+            <option>empreendedores</option>
+            <option>mães e famílias</option>
+            <option>público premium / alto padrão</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="gen" id="gen">✨ Gerar conteúdo</button>
+
+      <div class="out-head">
+        <h3>Resultado</h3>
+        <button class="copy" id="copy" hidden>Copiar</button>
+      </div>
+      <div class="out empty" id="out">O texto gerado vai aparecer aqui.</div>
+    </div>
+
+    <footer>
+      Texto gerado pela API da <a href="https://pollinations.ai" target="_blank" rel="noopener">Pollinations</a> ·
+      <a href="https://github.com/mkbraion" target="_blank" rel="noopener">github.com/mkbraion</a>
+    </footer>
+  </div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+$('chips').addEventListener('click', (e) => {
+  if (e.target.classList.contains('chip')) $('tema').value = e.target.textContent;
+});
+
+function buildPrompt() {
+  const tema = $('tema').value.trim() || 'um pequeno negócio local';
+  const tipo = $('tipo').value;
+  const tom = $('tom').value;
+  const plat = $('plat').value;
+  return `Você é um copywriter brasileiro especialista em redes sociais. `
+    + `Crie ${tipo}. `
+    + `Tema/produto: "${tema}". `
+    + `Tom de voz: ${tom}. Público-alvo: ${plat}. `
+    + `Escreva em português do Brasil, pronto para publicar, sem explicações extras nem comentários seus. `
+    + `Inclua uma chamada para ação e de 3 a 5 hashtags relevantes ao final quando fizer sentido.`;
+}
+
+// A API keyless da Pollinations às vezes anexa um rodapé de anúncio.
+// Removemos tudo a partir do primeiro marcador conhecido.
+function cleanResponse(t) {
+  const markers = ['**Support Pollinations', 'Support Pollinations', 'Powered by Pollinations', '🌸', 'pollinations.ai/redirect'];
+  let cut = t.length;
+  for (const m of markers) {
+    const i = t.indexOf(m);
+    if (i !== -1 && i < cut) cut = i;
+  }
+  return t.slice(0, cut).replace(/[\s\-*_]+$/, '').trim();
+}
+
+// Fallback local caso a API falhe (mesma filosofia do app KAIAfy)
+function localFallback() {
+  const tema = $('tema').value.trim() || 'seu negócio';
+  return `⚠️ A IA online não respondeu agora — segue um modelo base para você adaptar:\n\n`
+    + `🚀 Chegou a novidade sobre ${tema}!\n\n`
+    + `Você que busca resultado de verdade, essa é a sua chance. `
+    + `A gente cuida de cada detalhe pra você focar no que importa.\n\n`
+    + `👉 Chama no direct e garanta o seu.\n\n`
+    + `#${tema.replace(/\s+/g,'')} #novidade #promo #brasil #vendas`;
+}
+
+async function generate() {
+  const btn = $('gen'), out = $('out'), copy = $('copy');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Gerando...';
+  out.classList.remove('empty');
+  out.textContent = 'Pensando...';
+  copy.hidden = true;
+
+  const prompt = buildPrompt();
+  try {
+    const url = 'https://text.pollinations.ai/' + encodeURIComponent(prompt) + '?model=openai';
+    const res = await fetch(url, {signal: AbortSignal.timeout(12000)});
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = cleanResponse((await res.text()).trim());
+    out.textContent = text.length > 0 ? text : localFallback();
+  } catch (err) {
+    out.textContent = localFallback();
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '✨ Gerar conteúdo';
+    copy.hidden = false;
+  }
+}
+
+$('gen').addEventListener('click', generate);
+
+$('copy').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText($('out').textContent);
+    $('copy').textContent = '✓ Copiado';
+    $('copy').classList.add('done');
+    setTimeout(() => { $('copy').textContent = 'Copiar'; $('copy').classList.remove('done'); }, 1600);
+  } catch {}
+});
+</script>
+</body>
+</html>

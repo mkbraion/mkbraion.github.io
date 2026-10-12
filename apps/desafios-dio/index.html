@@ -1,0 +1,92 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Desafios de estudo — aplicativos simples de Nelson Neto"><title>Desafios de estudo</title><link rel="stylesheet" href="../style.css"></head><body><header><a href="../index.html">NN / Aplicativos</a><a href="https://mkbraion.github.io/">Portfólio ↗</a></header><main><span class="eyebrow">Biblioteca de estudo</span><h1>Desafios de estudo</h1><p>Material do repositório, disponível para leitura no navegador.</p><details class="panel" style="margin:12px 0"><summary>prompt-analise-feedback-kaiafy.md</summary><pre># Desafio de Prompt Engineering — Análise de Feedback de Clientes
+
+**Cenário escolhido:** análise de feedbacks/avaliações dos usuários do **KAIAfy**, um aplicativo mobile de dashboard de vendas com inteligência artificial.
+
+&gt; Este arquivo documenta os 3 passos do desafio. O **entregável principal** é o *Prompt Final* na seção do Passo 3.
+
+---
+
+## 🧱 Passo 1 — Intenção
+
+Quero que a IA analise **os feedbacks e avaliações enviados pelos usuários do KAIAfy (app de dashboard de vendas com IA)** para identificar **as principais reclamações, elogios e oportunidades de melhoria do produto**.
+
+O resultado será usado pela **equipe de produto (fundador + time de desenvolvimento)** para apoiar **a priorização das próximas melhorias do aplicativo**.
+
+A entrega deve conter **um resumo executivo, uma tabela com os temas recorrentes e uma lista das 3 prioridades mais importantes**.
+
+O resultado será considerado bom se for **claro, organizado, baseado apenas nos feedbacks fornecidos e realmente útil para decidir o que desenvolver primeiro**.
+
+---
+
+## 🧱 Passo 2 — Contexto e restrições
+
+**Contexto:** Estou trabalhando com feedbacks de usuários do KAIAfy relacionados a funcionalidades do app como o **dashboard de vendas, os relatórios, as notificações de vendas em tempo real e o assistente de IA**.
+
+**Dados disponíveis:** A base contém, para cada feedback, **a data, o canal de origem (loja de aplicativos, formulário no app ou suporte), o texto do comentário, a funcionalidade citada e uma nota de 1 a 5**.
+
+**Critérios de análise:** A IA deve classificar os feedbacks por **tema, sentimento (positivo, neutro ou negativo), urgência e funcionalidade citada**.
+
+**Cuidados e restrições:**
+- Use apenas os dados fornecidos.
+- Não invente números, causas ou conclusões.
+- Não exponha dados pessoais ou sensíveis dos usuários.
+- Se houver informação insuficiente, indique a limitação de forma explícita.
+- Use linguagem simples, direta e voltada para tomada de decisão de produto.
+
+---
+
+## 🧱 Passo 3 — Prompt Final (entregável)
+
+```text
+Atue como analista de produto e experiência do usuário de um aplicativo mobile.
+
+Sua tarefa é analisar os feedbacks enviados pelos usuários do KAIAfy — um app de
+dashboard de vendas com inteligência artificial — sobre funcionalidades como o
+dashboard de vendas, os relatórios, as notificações de vendas em tempo real e o
+assistente de IA, para identificar os temas recorrentes, o sentimento dos usuários
+e as oportunidades de melhoria do produto.
+
+Contexto: A análise será usada pela equipe de produto para priorizar as próximas
+melhorias do aplicativo. O objetivo é transformar comentários soltos em insights
+claros e acionáveis, que ajudem a decidir o que desenvolver primeiro.
+
+Dados disponíveis: Serão fornecidos feedbacks contendo data, canal de origem
+(loja de aplicativos, formulário no app ou suporte), texto do comentário,
+funcionalidade citada e nota de satisfação de 1 a 5.
+
+Instruções de análise:
+1. Classifique cada feedback por tema, sentimento (positivo, neutro ou negativo),
+   urgência e funcionalidade citada.
+2. Identifique os principais padrões, problemas, elogios e oportunidades.
+3. Aponte evidências nos dados fornecidos, usando exemplos curtos de comentários
+   reais (sem expor nenhum dado pessoal do usuário).
+4. Sugira ações práticas de produto para cada tema relevante.
+
+Formato da resposta:
+- Um resumo executivo com até 5 linhas.
+- Uma tabela com as colunas: Tema | Sentimento | Urgência | Evidência (exemplo curto) | Ação sugerida.
+- Uma lista final com as 3 prioridades mais importantes, em ordem de impacto.
+
+Restrições:
+- Use apenas os dados fornecidos.
+- Não invente números, causas ou conclusões.
+- Não exponha dados pessoais ou sensíveis dos usuários.
+- Informe explicitamente quando os dados não forem suficientes para uma conclusão.
+- Use linguagem simples, direta e voltada para tomada de decisão de produto.
+```
+
+---
+
+### ✅ Checklist de revisão
+- [x] A tarefa está clara (papel + objetivo definidos).
+- [x] O formato da resposta foi especificado (resumo + tabela + top 3).
+- [x] A IA sabe o que evitar (restrições explícitas).
+- [x] Baseado apenas nos dados fornecidos, sem invenção.
+</pre></details><details class="panel" style="margin:12px 0"><summary>README.md</summary><pre># Desafios DIO
+
+Repositório com meus desafios da [DIO](https://www.dio.me/).
+
+## Desafios
+
+- **[Análise de Feedback de Clientes com IA](prompt-analise-feedback-kaiafy.md)** — desafio de Prompt Engineering: construção de um prompt estruturado (papel, objetivo, contexto, dados, instruções, formato e restrições) para analisar feedbacks de usuários de um app.
+</pre></details></main><footer>Nelson Neto · Versões web simples. </footer></body></html>
